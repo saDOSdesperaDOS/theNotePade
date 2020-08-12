@@ -1,0 +1,17 @@
+*.class
+*.jrtc
+*.info
+*.iml
+*.png
+*.properties
+*.settings
+*.classpath
+*.project
+/.idea/
+/out/
+/target/
+/bin/
+# Package Files #
+*.jar
+*.war
+*.ear
