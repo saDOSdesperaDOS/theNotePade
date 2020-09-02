@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Account {
 
-    private List<Note> noteList;
     private int id;
     private String email;
     private String pass;
@@ -38,14 +37,5 @@ public class Account {
     public void setId(int id) {
         this.id = id;
     }
-
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
-    }
-
     
 }

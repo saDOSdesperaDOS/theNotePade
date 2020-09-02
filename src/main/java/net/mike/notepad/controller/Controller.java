@@ -1,13 +1,19 @@
 package net.mike.notepad.controller;
 
-import net.mike.notepad.model.Note;
+import net.mike.notepad.model.Account;
+import net.mike.notepad.model.Model;
 
-public  class Controller<T> {
-   public boolean add(T t) {
-      if (t instanceof Note) {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
-      }
-      return false;
+public  class Controller<T extends Account> {
+
+   public void add(T t) {
+       List<T> list = Model.getInstance().getList();
+       list.add(t);
+       Stream.of(list).distinct().toArray();
    }
 
    public boolean remove(T t) {
