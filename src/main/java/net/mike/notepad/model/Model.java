@@ -1,14 +1,16 @@
 package net.mike.notepad.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Model<T> {
     private static Model instance;
-    private List<T> accountList;
+    private Set<T> accountList;
 
     public Model() {
-        accountList = new ArrayList<T>();
+        accountList = new HashSet<>();
     }
 
     public static Model getInstance() {
@@ -18,7 +20,7 @@ public class Model<T> {
         return instance;
     }
 
-    public List<T> getList() {
+    public Set<T> getList() {
         return accountList;
     }
 }
