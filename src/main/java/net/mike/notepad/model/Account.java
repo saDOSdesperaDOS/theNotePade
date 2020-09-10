@@ -1,6 +1,6 @@
 package net.mike.notepad.model;
 
-import java.util.List;
+
 import java.util.Objects;
 
 public class Account {

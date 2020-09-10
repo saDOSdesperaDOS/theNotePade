@@ -2,11 +2,7 @@ package net.mike.notepad;
 
 import net.mike.notepad.controller.Controller;
 import net.mike.notepad.model.Account;
-import net.mike.notepad.model.Model;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import net.mike.notepad.model.ModelsAccounts;
 
 public class Main {
     public static void main(String... args) {
@@ -23,6 +19,6 @@ public class Main {
         controller.add(b);
         controller.add(c);
         System.out.println(a.getId() + " " + b.getId() + " " + c.getId());
-        System.out.println(Model.getInstance().getList().size());
+        System.out.println(ModelsAccounts.getInstance().getList().size());
     }
 }
