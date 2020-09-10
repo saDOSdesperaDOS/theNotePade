@@ -1,25 +1,18 @@
 package net.mike.notepad.model;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
-public class ModelsAccounts<K, T> {
-    private static ModelsAccounts instance;
-    private HashMap<K, T> accountList;
+public class ModelsAccounts<T> {
+    private static HashMap<Long, Account> instance;
 
     private ModelsAccounts() {
-        accountList =  new HashMap<>();
+        instance =  new HashMap<>();
     }
 
-    public static ModelsAccounts getInstance() {
+    public static HashMap<Long, Account> getInstance() {
         if (instance == null) {
-            instance = new ModelsAccounts();
+            ModelsAccounts modelsAccounts = new ModelsAccounts();
         }
         return instance;
-    }
-
-    public HashMap<K, T> getList() {
-        return accountList;
     }
 }
