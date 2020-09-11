@@ -5,19 +5,23 @@ import net.mike.notepad.model.ModelsAccounts;
 
 public  class Controller {
     private static Long id;
-       public void add(Account a) {
+       public void registration(Account a) {
                ModelsAccounts.getInstance().put(id, a);
        }
 
-       public boolean remove(Account a) {
+       public boolean logout(Account a) {
           return false;
        }
 
-       public boolean create(Account a) {
+       public boolean auth(Account a) {
           return false;
        }
 
-      public boolean update(Account a) {
+    public boolean avtorizaton(Account a) {
+        return false;
+    }
+
+      public boolean login(Account a) {
           return false;
        }
 }
