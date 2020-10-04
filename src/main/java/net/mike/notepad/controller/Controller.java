@@ -1,27 +1,28 @@
 package net.mike.notepad.controller;
 
-import net.mike.notepad.model.Account;
-import net.mike.notepad.model.ModelsAccounts;
+import net.mike.notepad.model.RegUserProfileList;
+import net.mike.notepad.model.etyties.Note;
+import net.mike.notepad.model.etyties.UserProfile;
 
 public  class Controller {
     private static Long id;
-       public void registration(Account a) {
-               ModelsAccounts.getInstance().put(id, a);
+       public void registration(UserProfile a) {
+               RegUserProfileList.getInstance().put(id, a);
        }
 
-       public boolean logout(Account a) {
+       public boolean logout(UserProfile a) {
           return false;
        }
 
-       public boolean auth(Account a) {
+       public boolean auth(UserProfile a) {
           return false;
        }
 
-    public boolean avtorizaton(Account a) {
+       public boolean avtorizaton(UserProfile a) {
         return false;
     }
 
-      public boolean login(Account a) {
+       public boolean login(UserProfile a) {
           return false;
        }
 }

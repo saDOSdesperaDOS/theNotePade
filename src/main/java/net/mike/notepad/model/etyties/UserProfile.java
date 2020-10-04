@@ -1,12 +1,16 @@
-package net.mike.notepad.model;
+package net.mike.notepad.model.etyties;
 
-import java.util.Objects;
-
-public class UserProfil {
+public class UserProfile {
 
     private int id;//у каждого экземпляра id == 0
     private String email;
     private String pass;
+
+    public UserProfile(int id, String email, String pass) {
+        this.id = id;
+        this.email = email;
+        this.pass = pass;
+    }
 
     public int getId() {
         return id;
@@ -36,14 +40,19 @@ public class UserProfil {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserProfil that = (UserProfil) o;
-        return id == that.id &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(pass, that.pass);
+
+        UserProfile that = (UserProfile) o;
+
+        if (id != that.id) return false;
+        if (!email.equals(that.email)) return false;
+        return pass.equals(that.pass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email);
+        int result = id;
+        result = 31 * result + email.hashCode();
+        result = 31 * result + pass.hashCode();
+        return result;
     }
 }

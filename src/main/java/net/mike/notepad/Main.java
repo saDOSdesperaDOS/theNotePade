@@ -1,29 +1,26 @@
 package net.mike.notepad;
 
-import net.mike.notepad.controller.Controller;
-import net.mike.notepad.model.Account;
-import net.mike.notepad.model.ModelsAccounts;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import net.mike.notepad.controller.services.NotesService;
+import net.mike.notepad.model.etyties.Account;
+import net.mike.notepad.model.etyties.Note;
+import net.mike.notepad.model.etyties.UserProfile;
 
 public class Main {
     public static void main(String... args) {
-        /*System.out.println("Hallo World!");
-        Account a = new Account("aaa", "sss");
-        Account b = new Account("aqefa", "sss");
-        Account c = new Account("aaa", "swrgewrgss");
-        System.out.println(Model.getInstance().getList().add(a));
-        System.out.println(Model.getInstance().getList().add(b));
-        System.out.println(Model.getInstance().getList().add(c));*/
-       /* Controller<Account> controller = new Controller<>();
-        System.out.println();
-        controller.add(a);
-        controller.add(b);
-        controller.add(c);
-        System.out.println(a.getId() + " " + b.getId() + " " + c.getId());
-        System.out.println(ModelsAccounts.getInstance().getList().size());*/
+        System.out.println("Start");
+        UserProfile userProfile = new UserProfile(1, "aaa", "bbb");
+        Account account = new Account(userProfile.getId(), userProfile);
+        Note note = new Note(1,"first note", "this is textarea first note");
+        Note note1 = new Note(2,"first note", "this is textarea first note");
+        Note note2 = new Note(3,"first note", "this is textarea first note");
+        Note note3 = new Note(4,"first note", "this is textarea first note");
+        NotesService notesService = new NotesService(account);
+        notesService.saveNote(note);
+        notesService.saveNote(note1);
+        notesService.saveNote(note2);
+        notesService.saveNote(note3);
+        System.out.println(notesService.getAccount().getNotesList().size());
+        System.out.println(account.getNotesList().size());
+
     }
 }
