@@ -1,26 +1,30 @@
 package net.mike.notepad;
 
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.controller.services.NotesService;
 import net.mike.notepad.model.etyties.Account;
 import net.mike.notepad.model.etyties.Note;
 import net.mike.notepad.model.etyties.UserProfile;
 
-public class Main {
-    public static void main(String... args) {
-        System.out.println("Start");
-        UserProfile userProfile = new UserProfile(1, "aaa", "bbb");
-        Account account = new Account(userProfile.getId(), userProfile);
-        Note note = new Note(1,"first note", "this is textarea first note");
-        Note note1 = new Note(2,"first note", "this is textarea first note");
-        Note note2 = new Note(3,"first note", "this is textarea first note");
-        Note note3 = new Note(4,"first note", "this is textarea first note");
-        NotesService notesService = new NotesService(account);
-        notesService.saveNote(note);
-        notesService.saveNote(note1);
-        notesService.saveNote(note2);
-        notesService.saveNote(note3);
-        System.out.println(notesService.getAccount().getNotesList().size());
-        System.out.println(account.getNotesList().size());
+@Route
+@Theme(variant = Lumo.DARK, value = Lumo.class )
+public class Main extends HorizontalLayout {
 
+    public Main() {
+
+        Button b = new Button("get grid notes");
+        add(b);
+        getElement().getStyle().set("position", "absolute");
+        getElement().getStyle().set("margin-top", "1%");
+        getElement().getStyle().set("margin-left", "84%");
+
+        b.addClickListener( e-> {
+            b.getUI().ifPresent(ui -> ui.navigate("grid"));
+        });
     }
 }
