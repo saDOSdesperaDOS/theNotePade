@@ -1,6 +1,6 @@
 package net.mike.notepad.model;
 
-import net.mike.notepad.model.etyties.UserProfile;
+import net.mike.notepad.entyties.UserProfile;
 
 import java.util.HashMap;
 

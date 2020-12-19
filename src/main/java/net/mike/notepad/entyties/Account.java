@@ -1,4 +1,4 @@
-package net.mike.notepad.model.etyties;
+package net.mike.notepad.entyties;
 
 import java.util.ArrayList;
 import java.util.List;

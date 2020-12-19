@@ -1,7 +1,7 @@
-package net.mike.notepad.controller.services;
+package net.mike.notepad.services;
 
-import net.mike.notepad.model.etyties.Account;
-import net.mike.notepad.model.etyties.Note;
+import net.mike.notepad.entyties.Account;
+import net.mike.notepad.entyties.Note;
 
 public class NotesService {
 

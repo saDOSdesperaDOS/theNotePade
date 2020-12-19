@@ -1,18 +1,13 @@
 package net.mike.notepad.view;
 
-import java.util.List;
-
-import com.vaadin.flow.component.HasValue;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import net.mike.notepad.controller.services.NotesService;
-import net.mike.notepad.model.etyties.Note;
+import net.mike.notepad.services.NotesService;
+import net.mike.notepad.entyties.Note;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
