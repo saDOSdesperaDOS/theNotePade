@@ -1,15 +1,28 @@
 package net.mike.notepad.entyties;
 
+import java.time.LocalDate;
+
 public class Note {
 
     int id;
     private String tittle;
     private String textArea;
+    private LocalDate date;
 
     public Note(int id, String tittle, String textArea) {
         this.id = id;
         this.tittle = tittle;
         this.textArea = textArea;
+        this.date = LocalDate.now();
+
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.now();
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public int getId() {

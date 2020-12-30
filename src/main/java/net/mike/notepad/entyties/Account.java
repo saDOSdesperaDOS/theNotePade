@@ -16,6 +16,12 @@ public class Account {
         notesList = new ArrayList<>();
     }
 
+    public Account(int id, UserProfile userProfile, List<Note> notesList) {
+        this.id = id;
+        this.userProfile = userProfile;
+        this.notesList = notesList;
+    }
+
     public int getId() {
         return id;
     }
