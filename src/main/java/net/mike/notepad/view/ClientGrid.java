@@ -1,6 +1,7 @@
 package net.mike.notepad.view;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
-public class ClientGrid extends VerticalLayout {
+public class ClientGrid extends HorizontalLayout {
     private TextField textArea;
     private Grid<Note> wrapper;
     private NotesService request;
@@ -39,10 +40,14 @@ public class ClientGrid extends VerticalLayout {
        // textArea.setSizeFull();
        // add(textArea);
         Grid<Note> grid = new Grid<>();
+        grid.setSelectionMode(Grid.SelectionMode.SINGLE);
         grid.setItems(noteList);
         grid.addColumn(Note::getTittle);
         grid.addColumn(Note::getDate);
         grid.setWidth("35%");
+        grid.addItemClickListener(event -> {
+            add(event.getItem().getTextArea());
+        });
         add(grid);
     }
 
