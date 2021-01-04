@@ -1,28 +1,25 @@
 package net.mike.notepad.entyties;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Note {
 
     int id;
     private String tittle;
     private String textArea;
-    private LocalDate date;
+    private String date;
 
     public Note(int id, String tittle, String textArea) {
         this.id = id;
         this.tittle = tittle;
         this.textArea = textArea;
-        this.date = LocalDate.now();
+        this.date = getDate();
 
     }
 
-    public LocalDate getDate() {
-        return LocalDate.now();
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public String getDate() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
     public int getId() {

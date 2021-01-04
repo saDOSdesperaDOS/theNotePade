@@ -5,6 +5,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -20,9 +21,6 @@ public class ClientGrid extends VerticalLayout {
     private TextField textArea;
     private Grid<Note> wrapper;
     private NotesService request;
-
-    List<String> tittleList = new ArrayList<>();
-
 
     public ClientGrid() {
         Note n1 = new Note(111, "first tittle", "textarrea of first note");
@@ -40,16 +38,10 @@ public class ClientGrid extends VerticalLayout {
         //wrapper.setItems(notesList);
        // textArea.setSizeFull();
        // add(textArea);
-        Grid<Note> grid = new Grid<>(Note.class);
+        Grid<Note> grid = new Grid<>();
         grid.setItems(noteList);
-
-        Grid.Column columnId = grid.getColumnByKey("id");
-        Grid.Column columnTextArea = grid.getColumnByKey("textArea");
-        Grid.Column columnTittle = grid.getColumnByKey("tittle");
-
-        grid.removeColumnByKey("id");
-        grid.removeColumnByKey("textArea");
-        grid.getColumnByKey("tittle").setHeader("tittles").getElement().getAttributeNames().forEach(System.out::println);
+        grid.addColumn(Note::getTittle);
+        grid.addColumn(Note::getDate);
         grid.setWidth("35%");
         add(grid);
     }
