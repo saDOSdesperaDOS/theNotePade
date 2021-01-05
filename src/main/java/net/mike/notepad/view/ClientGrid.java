@@ -101,19 +101,15 @@ public class ClientGrid extends HorizontalLayout {
             service.saveNote(note);
             grid.getDataProvider().refreshAll();
         });
+
+
         Binder<Note> binder = new Binder<>();
 
 // Field binding configuration omitted,
 // it should be done here
-        Note note = null;
-        while (grid.getSelectedItems().iterator().hasNext()) {
 
-             note = grid.getSelectedItems().iterator().next();
 
-            if (note.getTextArea().equals(textArea.getValue())) {
-                binder.setBean(note);
-            }
-        }
+                binder.setBean(n);
 
 // Loads the values from the person instance
 // Sets person to be updated when any bound field
@@ -125,7 +121,8 @@ public class ClientGrid extends HorizontalLayout {
                 // person is always up-to-date as long as
                 // there are no validation errors
 
-                service.updateNote(note, note.getTittle(), note.getTextArea());
+                service.updateNote(n, n.getTittle(), textArea.getValue());
+                grid.getDataProvider().refreshAll();
             }
         });
         layoutVerticalRight.add(saveButton, textArea);
