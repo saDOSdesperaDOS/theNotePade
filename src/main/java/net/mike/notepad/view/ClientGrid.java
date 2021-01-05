@@ -1,10 +1,14 @@
 package net.mike.notepad.view;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.Route;
@@ -45,11 +49,13 @@ public class ClientGrid extends HorizontalLayout {
         grid.addColumn(Note::getTittle);
         grid.addColumn(Note::getDate);
         grid.setWidth("35%");
+        TextArea textArea = new TextArea();
+        textArea.setWidth("65%");
         grid.addItemClickListener(event -> {
-            add(event.getItem().getTextArea());
+           textArea.setValue(event.getItem().getTextArea());
         });
         add(grid);
-    }
+        add(textArea);
 
    /* private void onNameFilterTextChange(HasValue.ValueChangeEvent<String> event) {
         ListDataProvider<Note> dataProvider = (ListDataProvider<Note>) wrapper.getDataProvider();
@@ -59,4 +65,5 @@ public class ClientGrid extends HorizontalLayout {
     private Boolean caseInsensitiveContains(String where, String what) {
         return where.toLowerCase().contains(what.toLowerCase());
     }*/
+    }
 }
