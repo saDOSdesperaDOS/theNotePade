@@ -63,6 +63,11 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>flow-data</artifactId>
+            <version>1.4.8</version>
+        </dependency>
     </dependencies>
 
     <build>

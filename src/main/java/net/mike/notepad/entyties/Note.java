@@ -5,13 +5,28 @@ import java.time.format.DateTimeFormatter;
 
 public class Note {
 
-    int id;
+    static int id;
     private String tittle;
     private String textArea;
     private String date;
 
-    public Note(int id, String tittle, String textArea) {
-        this.id = id;
+    public Note() {
+        this.id++;
+        this.tittle = " ";
+        this.textArea = " ";
+        this.date = getDate();
+    }
+
+    public Note(String textArea) {
+        this.id++;
+        this.tittle = textArea.substring(0, 25);
+        this.textArea = textArea;
+        this.date = getDate();
+
+    }
+
+    public Note(String tittle, String textArea) {
+        this.id++;
         this.tittle = tittle;
         this.textArea = textArea;
         this.date = getDate();

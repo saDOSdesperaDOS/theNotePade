@@ -3,9 +3,10 @@ package net.mike.notepad.services;
 import net.mike.notepad.entyties.Account;
 import net.mike.notepad.entyties.Note;
 
-public class NotesService {
+import java.util.List;
 
-    Account account;
+public class NotesService {
+    private Account account;
 
     public NotesService(Account account) {
         this.account = account;
@@ -19,23 +20,19 @@ public class NotesService {
         this.account = account;
     }
 
-
-
     public boolean saveNote(Note a) {
-        account.getNotesList().add(a);
+        this.account.getNotesList().add(a);
         return true;
     }
 
     public boolean removeNote(Note a) {
-        account.getNotesList().remove(a);
+        this.account.getNotesList().remove(a);
         return true;
     }
 
-    public boolean updateNote(Note a) {
-        return false;
-    }
-
-    public boolean crudNote(Note a) {
-        return false;
+    public boolean updateNote(Note a, String tittle, String textArrea) {
+        a.setTittle(tittle);
+        a.setTextArea(textArrea);
+        return true;
     }
 }
