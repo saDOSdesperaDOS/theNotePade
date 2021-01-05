@@ -52,7 +52,7 @@ public class ClientGrid extends HorizontalLayout {
         TextArea textArea = new TextArea();
         textArea.setWidth("65%");
         grid.addItemClickListener(event -> {
-           textArea.setValue(event.getItem().getTextArea());
+            textArea.setValue(event.getItem().getTextArea());
         });
         add(grid);
         add(textArea);
