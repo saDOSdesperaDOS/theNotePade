@@ -24,6 +24,8 @@ import net.mike.notepad.entyties.Note;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
@@ -58,6 +60,29 @@ public class ClientGrid extends HorizontalLayout {
         textArea.setWidth("100%");
         textArea.setMinHeight("100%");
         textArea.setMaxHeight("100%");
+        /**изменение в textArea дедфют uddate в поле textArea заметки время созд которой ~ **/
+        /*textArea.addInputListener(event -> {
+            List<Note> noteList = service.getAccount().getNotesList();
+            Stream.of(noteList).filter(textAreaNote ->
+                    (noteList.iterator().next().getTextArea().equals(textAreaNote))).count();
+        });*/
+       /* Binder<Note> binder = new Binder<>();
+        Button saveButton = new Button("Save", event -> {
+                for (int i = 0; i < service.getAccount().getNotesList().size(); i++) {
+                    if(service.getAccount().getNotesList().get(i).getTextArea().equals(this.textArea.getValue())) {
+                        binder.setBean(service.getAccount().getNotesList().get(i));
+                        if (binder.validate().isOk()) {
+                            service.getAccount().getNotesList().get(i).setTextArea(this.textArea.getValue());
+                            service.getAccount().getNotesList().get(i).setTittle(this.textArea.getValue().substring(0, 5));
+                            service.updateNote(service.getAccount().getNotesList().get(i), service.getAccount().getNotesList().get(i).getTittle(), service.getAccount().getNotesList().get(i).getTextArea());
+                    } else {
+                            service.saveNote(service.getAccount().getNotesList().get(i));
+                        }
+                }
+                grid.getDataProvider().refreshItem(service.getAccount().getNotesList().get(i));
+            }
+        });*/
+
 
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
@@ -70,28 +95,41 @@ public class ClientGrid extends HorizontalLayout {
         layoutVerticalRight.setMaxHeight("100%");
         layoutVerticalLeft.setMinHeight("100%");
         layoutVerticalLeft.setMaxHeight("100%");
-        Binder<Note> binder = new Binder<>(Note.class);
-        binder.forField(grid.getColumnByKey("id").getKey()).bind(Note::getTittle, Note::setTittle);
-        Button button = new Button("Create a new Note", event -> {
 
-        });
-        button.addClickListener(click -> {
+        Button button = new Button("Create a new Note", event -> {
             Note note = new Note();
             service.saveNote(note);
-
-            Notification.show("create a new Note - "  + account.getNotesList().size());
+            grid.getDataProvider().refreshAll();
         });
-        layoutVerticalRight.add(textArea);
+        Binder<Note> binder = new Binder<>();
+
+// Field binding configuration omitted,
+// it should be done here
+        Note note = null;
+        while (grid.getSelectedItems().iterator().hasNext()) {
+
+             note = grid.getSelectedItems().iterator().next();
+
+            if (note.getTextArea().equals(textArea.getValue())) {
+                binder.setBean(note);
+            }
+        }
+
+// Loads the values from the person instance
+// Sets person to be updated when any bound field
+// is updated
+
+
+        Button saveButton = new Button("Save", event -> {
+            if (binder.validate().isOk()) {
+                // person is always up-to-date as long as
+                // there are no validation errors
+
+                service.updateNote(note, note.getTittle(), note.getTextArea());
+            }
+        });
+        layoutVerticalRight.add(saveButton, textArea);
         layoutVerticalLeft.add(grid, button);
         add(layoutVerticalLeft, layoutVerticalRight);
-
-   /* private void onNameFilterTextChange(HasValue.ValueChangeEvent<String> event) {
-        ListDataProvider<Note> dataProvider = (ListDataProvider<Note>) wrapper.getDataProvider();
-        dataProvider.setFilter(Note :: getLeaderCode, s -> caseInsensitiveContains(s, event.getValue()));
-    }
-
-    private Boolean caseInsensitiveContains(String where, String what) {
-        return where.toLowerCase().contains(what.toLowerCase());
-    }*/
     }
 }
