@@ -5,7 +5,9 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -72,7 +74,7 @@ public class ClientGrid extends HorizontalLayout {
             grid.getDataProvider().refreshAll();
         });
 
-        Binder<Note> binder = new Binder<>();
+        /*Binder<Note> binder = new Binder<>();
         binder.setBean(service.getAccount().getNotesList().get(0));
 
         Button saveButton = new Button("Save", event -> {
@@ -81,12 +83,50 @@ public class ClientGrid extends HorizontalLayout {
                 service.updateNote(service.getAccount().getNotesList().get(0), textArea.getValue());
                 log.info("обновили первую заметку в списке");
                 grid.getDataProvider().refreshItem(service.getAccount().getNotesList().get(0));
+                grid.getDataProvider().refreshAll();
                 log.info("обновили всю сетку");
 
             }
-        });
+        });*/
+        Binder<Note> binder = new Binder<>(Note.class);
+        TextField titleField = new TextField();
+// Start by defining the Field instance to use
+        binder.forField(titleField)
+                // Finalize by doing the actual binding
+                // to the Person class
+                .bind(
+                        // Callback that loads the title
+                        // from a person instance
+                        Note::getTittle,
+                        // Callback that saves the title
+                        // in a person instance
+                        Note::setTittle);
+        TextField textAreaField = new TextField();
+// Shorthand for cases without extra configuration
+        binder.bind(textAreaField, Note::getTextArea,
+                Note::setTextArea);
 
-        layoutVerticalRight.add(saveButton, textArea);
+
+// Updates the value in each bound field component
+        binder.readBean(n);
+        Button saveButton = new Button("Save",
+                event -> {
+                    try {
+                        binder.writeBean(n);
+                        // A real application would also save
+                        // the updated person
+                        // using the application's backend
+                        grid.getDataProvider().refreshAll();
+                    } catch (ValidationException e) {
+                        System.out.println(e.getBeanValidationErrors());;
+                    }
+                });
+// Updates the fields again with the
+// previously saved values
+        Button resetButton = new Button("Reset",
+                event -> binder.readBean(n));
+
+        layoutVerticalRight.add(saveButton, resetButton, titleField, textAreaField);
         layoutVerticalLeft.add(grid, button);
         add(layoutVerticalLeft, layoutVerticalRight);
     }
