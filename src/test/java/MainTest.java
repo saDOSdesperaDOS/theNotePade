@@ -18,15 +18,13 @@ public class MainTest {
         service.saveNote(n1);
         service.saveNote(n2);
         service.saveNote(n3);
-        for (Note note : account.getNotesList()) {
-            System.out.println(note.getId());
-        }
-        System.out.println(account.getNotesList().size());
-        System.out.println(n3.getId());
-        service.removeNote(n3);
-        for (Note note : account.getNotesList()) {
-            System.out.println(note.getId());
-        }
-        System.out.println(account.getNotesList().size());
+
+        List<Note> noteList = service.getAccount().getNotesList();
+        Note note = noteList.get(0);
+        System.out.println(note.getTittle());
+        service.updateNote(noteList.get(0), "andere tittle");
+        System.out.println(noteList.get(0).getTittle());
+        System.out.println(note.hashCode() == noteList.get(0).hashCode());
+        System.out.println(note.getTittle().equals(noteList.get(0).getTittle()));
     }
 }

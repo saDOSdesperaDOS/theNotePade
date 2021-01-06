@@ -30,9 +30,9 @@ public class NotesService {
         return true;
     }
 
-    public boolean updateNote(Note a, String tittle, String textArrea) {
-        a.setTittle(tittle);
+    public boolean updateNote(Note a, String textArrea) {
         a.setTextArea(textArrea);
+        a.setTittle(textArrea.substring(0, 10));
         return true;
     }
 }

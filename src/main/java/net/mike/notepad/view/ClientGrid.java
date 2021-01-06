@@ -1,19 +1,11 @@
 package net.mike.notepad.view;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.renderer.Renderer;
-import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -21,19 +13,24 @@ import net.mike.notepad.entyties.Account;
 import net.mike.notepad.entyties.UserProfile;
 import net.mike.notepad.services.NotesService;
 import net.mike.notepad.entyties.Note;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
+
 public class ClientGrid extends HorizontalLayout {
 
-    private TextArea textArea;
+    private Logger log = LoggerFactory.getLogger(ClientGrid.class);
 
     public ClientGrid() {
+
+        setMinHeight("100%");
+        setMaxHeight("100%");
+
+        VerticalLayout layoutVerticalRight = new VerticalLayout();
+        VerticalLayout layoutVerticalLeft = new VerticalLayout();
+
         UserProfile userProfile = new UserProfile(123, "email", "password");
         Account account = new Account(123, userProfile);
         Note n = new Note( "first test tittle", "textarea of first note");
@@ -42,6 +39,7 @@ public class ClientGrid extends HorizontalLayout {
         Note n3 = new Note();
         NotesService service = new NotesService(account);
         Grid<Note> grid = new Grid<>();
+        grid.setWidth("100%");
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
 
         service.saveNote(n);
@@ -52,49 +50,21 @@ public class ClientGrid extends HorizontalLayout {
         grid.addColumn(Note::getTittle);
         grid.addColumn(Note::getDate);
 
-        setMinHeight("100%");
-        setMaxHeight("100%");
-        grid.setWidth("100%");
+        TextArea  textArea = new TextArea();
 
-        textArea = new TextArea();
         textArea.setWidth("100%");
         textArea.setMinHeight("100%");
         textArea.setMaxHeight("100%");
-        /**изменение в textArea дедфют uddate в поле textArea заметки время созд которой ~ **/
-        /*textArea.addInputListener(event -> {
-            List<Note> noteList = service.getAccount().getNotesList();
-            Stream.of(noteList).filter(textAreaNote ->
-                    (noteList.iterator().next().getTextArea().equals(textAreaNote))).count();
-        });*/
-       /* Binder<Note> binder = new Binder<>();
-        Button saveButton = new Button("Save", event -> {
-                for (int i = 0; i < service.getAccount().getNotesList().size(); i++) {
-                    if(service.getAccount().getNotesList().get(i).getTextArea().equals(this.textArea.getValue())) {
-                        binder.setBean(service.getAccount().getNotesList().get(i));
-                        if (binder.validate().isOk()) {
-                            service.getAccount().getNotesList().get(i).setTextArea(this.textArea.getValue());
-                            service.getAccount().getNotesList().get(i).setTittle(this.textArea.getValue().substring(0, 5));
-                            service.updateNote(service.getAccount().getNotesList().get(i), service.getAccount().getNotesList().get(i).getTittle(), service.getAccount().getNotesList().get(i).getTextArea());
-                    } else {
-                            service.saveNote(service.getAccount().getNotesList().get(i));
-                        }
-                }
-                grid.getDataProvider().refreshItem(service.getAccount().getNotesList().get(i));
-            }
-        });*/
 
+        layoutVerticalLeft.setWidth("60%");
+        layoutVerticalLeft.setMinHeight("100%");
+        layoutVerticalLeft.setMaxHeight("100%");
+        layoutVerticalRight.setMinHeight("100%");
+        layoutVerticalRight.setMaxHeight("100%");
 
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
         });
-
-        VerticalLayout layoutVerticalRight = new VerticalLayout();
-        VerticalLayout layoutVerticalLeft = new VerticalLayout();
-        layoutVerticalLeft.setWidth("60%");
-        layoutVerticalRight.setMinHeight("100%");
-        layoutVerticalRight.setMaxHeight("100%");
-        layoutVerticalLeft.setMinHeight("100%");
-        layoutVerticalLeft.setMaxHeight("100%");
 
         Button button = new Button("Create a new Note", event -> {
             Note note = new Note();
@@ -102,29 +72,20 @@ public class ClientGrid extends HorizontalLayout {
             grid.getDataProvider().refreshAll();
         });
 
-
         Binder<Note> binder = new Binder<>();
-
-// Field binding configuration omitted,
-// it should be done here
-
-
-                binder.setBean(n);
-
-// Loads the values from the person instance
-// Sets person to be updated when any bound field
-// is updated
-
+        binder.setBean(service.getAccount().getNotesList().get(0));
 
         Button saveButton = new Button("Save", event -> {
             if (binder.validate().isOk()) {
-                // person is always up-to-date as long as
-                // there are no validation errors
+                log.info("Начали обновление первой заметки в списке");
+                service.updateNote(service.getAccount().getNotesList().get(0), textArea.getValue());
+                log.info("обновили первую заметку в списке");
+                grid.getDataProvider().refreshItem(service.getAccount().getNotesList().get(0));
+                log.info("обновили всю сетку");
 
-                service.updateNote(n, n.getTittle(), textArea.getValue());
-                grid.getDataProvider().refreshAll();
             }
         });
+
         layoutVerticalRight.add(saveButton, textArea);
         layoutVerticalLeft.add(grid, button);
         add(layoutVerticalLeft, layoutVerticalRight);
