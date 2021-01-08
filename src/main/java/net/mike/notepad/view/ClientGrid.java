@@ -42,7 +42,7 @@ public class ClientGrid extends HorizontalLayout {
         NotesService service = new NotesService(account);
         Grid<Note> grid = new Grid<>();
         grid.setWidth("100%");
-        grid.setSelectionMode(Grid.SelectionMode.SINGLE);
+        //grid.setSelectionMode(Grid.SelectionMode.SINGLE);
 
         service.saveNote(n);
         service.saveNote(n2);
@@ -88,45 +88,26 @@ public class ClientGrid extends HorizontalLayout {
 
             }
         });*/
+
         Binder<Note> binder = new Binder<>(Note.class);
-        TextField titleField = new TextField();
-// Start by defining the Field instance to use
-        binder.forField(titleField)
-                // Finalize by doing the actual binding
-                // to the Person class
+        binder.forField(textArea)
                 .bind(
-                        // Callback that loads the title
-                        // from a person instance
-                        Note::getTittle,
-                        // Callback that saves the title
-                        // in a person instance
-                        Note::setTittle);
-        TextField textAreaField = new TextField();
-// Shorthand for cases without extra configuration
-        binder.bind(textAreaField, Note::getTextArea,
-                Note::setTextArea);
-
-
-// Updates the value in each bound field component
-        binder.readBean(n);
+                        Note::getTextArea,
+                        Note::setTextArea);
+        //binder.readBean(n);
         Button saveButton = new Button("Save",
                 event -> {
                     try {
                         binder.writeBean(n);
-                        // A real application would also save
-                        // the updated person
-                        // using the application's backend
-                        grid.getDataProvider().refreshAll();
+                        binder.readBean(n);
                     } catch (ValidationException e) {
                         System.out.println(e.getBeanValidationErrors());;
                     }
                 });
-// Updates the fields again with the
-// previously saved values
-        Button resetButton = new Button("Reset",
-                event -> binder.readBean(n));
 
-        layoutVerticalRight.add(saveButton, resetButton, titleField, textAreaField);
+
+
+        layoutVerticalRight.add(saveButton, textArea);
         layoutVerticalLeft.add(grid, button);
         add(layoutVerticalLeft, layoutVerticalRight);
     }
