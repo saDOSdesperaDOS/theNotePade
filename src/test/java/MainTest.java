@@ -9,22 +9,18 @@ public class MainTest {
     public static void main(String... args) {
         UserProfile userProfile = new UserProfile(123, "email", "password");
         Account account = new Account(123, userProfile);
-        Note n = new Note("first test tittle", "textarea of first note");
-        Note n1 = new Note( "first tittle", "textarrea of first note");
-        Note n2 = new Note("second tittle", "textarrea of second note");
-        Note n3 = new Note("threetin tittle", "textarrea of threetin note");
+        Note n = new Note(12, "first test tittle", "textarea of first note");
+        Note n1 = new Note(13,  "first tittle", "textarrea of first note");
+        Note n2 = new Note(14,"second tittle", "textarrea of second note");
+       // Note n3 = new Note(15,"threetin tittle", "textarrea of threetin note");
         NotesService service = new NotesService(account);
         service.saveNote(n);
         service.saveNote(n1);
         service.saveNote(n2);
-        service.saveNote(n3);
+        //service.saveNote(n3);
 
         List<Note> noteList = service.getAccount().getNotesList();
         Note note = noteList.get(0);
-        System.out.println(note.getTittle());
-        service.updateNote(noteList.get(0), "andere tittle");
-        System.out.println(noteList.get(0).getTittle());
-        System.out.println(note.hashCode() == noteList.get(0).hashCode());
-        System.out.println(note.getTittle().equals(noteList.get(0).getTittle()));
+        System.out.println(note.getId());
     }
 }

@@ -5,20 +5,19 @@ import java.time.format.DateTimeFormatter;
 
 public class Note {
 
-    static int id;
+    private Integer id;
     private String tittle;
     private String textArea;
     private String date;
 
-    public Note() {
-        this.id++;
+    public Note(Integer id) {
+        this.id = id;
         this.tittle = " ";
         this.textArea = " ";
         this.date = getDate();
     }
 
     public Note(String textArea) {
-        this.id++;
         this.tittle = textArea.substring(0, 25);
         this.textArea = textArea;
         this.date = getDate();
@@ -26,19 +25,25 @@ public class Note {
     }
 
     public Note(String tittle, String textArea) {
-        this.id++;
         this.tittle = tittle;
         this.textArea = textArea;
         this.date = getDate();
 
     }
 
+    public Note(Integer id, String tittle, String textArea) {
+        this.id = id;
+        this.tittle = tittle;
+        this.textArea = textArea;
+    }
+
     public String getDate() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
-    public int getId() {
-        return id;
+    public Integer getId() {
+
+        return this.id;
     }
 
     public void setId(int id) {

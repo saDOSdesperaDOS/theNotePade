@@ -35,10 +35,10 @@ public class ClientGrid extends HorizontalLayout {
 
         UserProfile userProfile = new UserProfile(123, "email", "password");
         Account account = new Account(123, userProfile);
-        Note n = new Note( "first test tittle", "textarea of first note");
-        Note n1 = new Note( "first tittle", "textarrea of first note");
-        Note n2 = new Note("second tittle", "textarrea of second note");
-        Note n3 = new Note();
+        Note n = new Note( 12,"first test tittle", "textarea of first note");
+        Note n1 = new Note( 13,"first tittle", "textarrea of first note");
+        Note n2 = new Note(14,"second tittle", "textarrea of second note");
+        //Note n3 = new Note();
         NotesService service = new NotesService(account);
         Grid<Note> grid = new Grid<>();
         grid.setWidth("100%");
@@ -46,17 +46,19 @@ public class ClientGrid extends HorizontalLayout {
 
         service.saveNote(n);
         service.saveNote(n2);
-        service.saveNote(n3);
+        service.saveNote(n1);
 
         grid.setItems(service.getAccount().getNotesList());
         grid.addColumn(Note::getTittle);
         grid.addColumn(Note::getDate);
 
         TextArea  textArea = new TextArea();
+        TextArea  textFieldTittle = new TextArea();
 
         textArea.setWidth("100%");
-        textArea.setMinHeight("100%");
-        textArea.setMaxHeight("100%");
+        textFieldTittle.setWidth("100%");
+        textFieldTittle.setHeight("5%");
+        textArea.setHeight("80%");
 
         layoutVerticalLeft.setWidth("60%");
         layoutVerticalLeft.setMinHeight("100%");
@@ -64,14 +66,19 @@ public class ClientGrid extends HorizontalLayout {
         layoutVerticalRight.setMinHeight("100%");
         layoutVerticalRight.setMaxHeight("100%");
 
+        //ote noteOld = new Note();
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
+            textFieldTittle.setValue(event.getItem().getTittle());
+            //Note noteOldF = service.find(event.getItem().getId());
         });
 
         Button button = new Button("Create a new Note", event -> {
-            Note note = new Note();
+            Note note = new Note(114);
             service.saveNote(note);
             grid.getDataProvider().refreshAll();
+            textArea.setValue(note.getTextArea());
+            textFieldTittle.setValue(note.getTittle());
         });
 
         /*Binder<Note> binder = new Binder<>();
@@ -107,7 +114,7 @@ public class ClientGrid extends HorizontalLayout {
 
 
 
-        layoutVerticalRight.add(saveButton, textArea);
+        layoutVerticalRight.add(saveButton,textFieldTittle, textArea);
         layoutVerticalLeft.add(grid, button);
         add(layoutVerticalLeft, layoutVerticalRight);
     }
