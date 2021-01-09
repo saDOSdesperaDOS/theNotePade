@@ -68,6 +68,7 @@ public class ClientGrid extends HorizontalLayout {
 
         //ote noteOld = new Note();
         grid.addItemClickListener(event -> {
+            grid.getDataProvider().refreshItem(event.getItem());
             textArea.setValue(event.getItem().getTextArea());
             textFieldTittle.setValue(event.getItem().getTittle());
             //Note noteOldF = service.find(event.getItem().getId());
@@ -97,22 +98,21 @@ public class ClientGrid extends HorizontalLayout {
         });*/
 
         Binder<Note> binder = new Binder<>(Note.class);
-        binder.forField(textArea)
-                .bind(
-                        Note::getTextArea,
-                        Note::setTextArea);
+        binder.forField(textArea).bind(Note::getTextArea, Note::setTextArea);
+        binder.forField(textFieldTittle).bind(Note::getTittle, Note::setTittle);
         //binder.readBean(n);
         Button saveButton = new Button("Save",
                 event -> {
                     try {
                         binder.writeBean(n);
-                        binder.readBean(n);
+
                     } catch (ValidationException e) {
                         System.out.println(e.getBeanValidationErrors());;
+                    } finally {
+                      // grid.getDataProvider().refreshAll();
+                        //binder.readBean(n);
                     }
                 });
-
-
 
         layoutVerticalRight.add(saveButton,textFieldTittle, textArea);
         layoutVerticalLeft.add(grid, button);
