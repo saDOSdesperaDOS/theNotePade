@@ -21,6 +21,6 @@ public class MainTest {
 
         List<Note> noteList = service.getAccount().getNotesList();
         Note note = noteList.get(0);
-        System.out.println(note.getId());
+        System.out.println(note.getTextArea().equals(service.find(12).getTextArea()));
     }
 }

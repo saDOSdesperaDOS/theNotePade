@@ -3,12 +3,18 @@ package net.mike.notepad.entyties;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Note {
+public class Note implements Cloneable {
 
     private Integer id;
     private String tittle;
     private String textArea;
     private String date;
+
+
+
+    public  Note() {
+
+    }
 
     public Note(Integer id) {
         this.id = id;
@@ -46,7 +52,7 @@ public class Note {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -84,5 +90,15 @@ public class Note {
         result = 31 * result + tittle.hashCode();
         result = 31 * result + textArea.hashCode();
         return result;
+    }
+
+    @Override
+    public Note clone() { //NOSONAR
+        try {
+            return (Note) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(
+                    "The Note object could not be cloned.", e);
+        }
     }
 }

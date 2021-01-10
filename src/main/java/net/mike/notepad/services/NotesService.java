@@ -37,11 +37,11 @@ public class NotesService {
         return true;
     }
 
-    public Optional<Note> find(Integer id) {
+    public Note find(Integer id) {
         return account.getNotesList()
                 .stream()
                 .filter(entity -> entity.getId().equals(id))
-                .findFirst();
+                .findFirst().get();
     }
 
     public boolean removeNote(Note a) {
@@ -49,9 +49,9 @@ public class NotesService {
         return true;
     }
 
-    public boolean updateNote(Note a, String textArrea) {
+    public boolean updateNote(Note a, String tittle, String textArrea) {
         a.setTextArea(textArrea);
-        a.setTittle(textArrea.substring(0, 10));
+        a.setTittle(tittle);
         return true;
     }
 }
