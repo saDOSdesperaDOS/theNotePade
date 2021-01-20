@@ -1,10 +1,14 @@
 package net.mike.notepad.entyties;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Entity
 public class Note implements Cloneable {
 
+    @Id
     private Integer id;
     private String tittle;
     private String textArea;
