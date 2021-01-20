@@ -1,5 +1,8 @@
 package net.mike.notepad.entyties;
 
+import org.hibernate.annotations.Table;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
@@ -10,7 +13,9 @@ public class Note implements Cloneable {
 
     @Id
     private Integer id;
+    @Column
     private String tittle;
+    @Column
     private String textArea;
     private String date;
 
