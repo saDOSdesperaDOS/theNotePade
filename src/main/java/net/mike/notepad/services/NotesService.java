@@ -2,9 +2,9 @@ package net.mike.notepad.services;
 
 import net.mike.notepad.entyties.Account;
 import net.mike.notepad.entyties.Note;
-
-import java.util.List;
-import java.util.Optional;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class NotesService {
 
@@ -32,8 +32,12 @@ public class NotesService {
         this.account = account;
     }
 
-    public boolean saveNote(Note a) {
-        this.account.getNotesList().add(a);
+    public boolean saveNote(Note note) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.save(note);
+        tx1.commit();
+        session.close();
         return true;
     }
 

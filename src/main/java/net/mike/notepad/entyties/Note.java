@@ -1,25 +1,26 @@
 package net.mike.notepad.entyties;
 
-import org.hibernate.annotations.Table;
+import org.hibernate.annotations.Columns;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
+@Table(name = "NOTESLIST", schema = "PUBLIC", catalog = "APPSTABLES")
 public class Note implements Cloneable {
 
     @Id
+   @Column(name= "id")
     private Integer id;
-    @Column
+    @Column(name = "tittle")
     private String tittle;
-    @Column
+    @Column(name="textarea")
     private String textArea;
-    private String date;
-
-
+    //private String date;
 
     public  Note() {
 
@@ -29,21 +30,19 @@ public class Note implements Cloneable {
         this.id = id;
         this.tittle = " ";
         this.textArea = " ";
-        this.date = getDate();
+       // this.date = getDate();
     }
 
     public Note(String textArea) {
         this.tittle = textArea.substring(0, 25);
         this.textArea = textArea;
-        this.date = getDate();
-
+        //this.date = getDate();
     }
 
     public Note(String tittle, String textArea) {
         this.tittle = tittle;
         this.textArea = textArea;
-        this.date = getDate();
-
+        //this.date = getDate();
     }
 
     public Note(Integer id, String tittle, String textArea) {
