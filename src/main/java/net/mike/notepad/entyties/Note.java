@@ -1,7 +1,5 @@
 package net.mike.notepad.entyties;
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

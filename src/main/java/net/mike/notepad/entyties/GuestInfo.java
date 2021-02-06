@@ -1,6 +1,6 @@
 package net.mike.notepad.entyties;
 
-public class QuestInfo {
+public class GuestInfo {
 
     private String email;
     private String coockie;

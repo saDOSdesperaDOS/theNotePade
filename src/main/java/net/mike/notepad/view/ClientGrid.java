@@ -30,9 +30,9 @@ public class ClientGrid extends HorizontalLayout {
 
     private Logger log = LoggerFactory.getLogger(ClientGrid.class);
 
-    private Note n = new Note( 12,"first test tittle", "textarea of first note");
+    /*private Note n = new Note( 12,"first test tittle", "textarea of first note");
     private Note n1 = new Note( 13,"first tittle", "textarrea of first note");
-    private Note n2 = new Note(14,"second tittle", "textarrea of second note");
+    private Note n2 = new Note(14,"second tittle", "textarrea of second note");*/
 
     public ClientGrid() {
 
@@ -52,11 +52,11 @@ public class ClientGrid extends HorizontalLayout {
         TextArea  textFieldTittle = new TextArea();
         Note selectedNote = new Note();
 
-        service.saveNote(n);
+        /*service.saveNote(n);
         service.saveNote(n1);
-        service.saveNote(n2);
+        service.saveNote(n2);*/
 
-        grid.setItems(service.getAccount().getNotesList());
+        grid.setItems(service.getNotesList());
         grid.asSingleSelect().addValueChangeListener(event -> {
             String message = String.format("Selection changed from %s to %s",
                     event.getOldValue().getId(), event.getValue().getId());

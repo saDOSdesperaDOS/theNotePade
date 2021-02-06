@@ -16,15 +16,17 @@ public class MainTest {
         Note n2 = new Note(14,"6 tittle", "textarrea of seven note");
        // Note n3 = new Note(15,"threetin tittle", "textarrea of threetin note");
        NotesService service = new NotesService(account);
-        service.saveNote(n);
+       /* service.saveNote(n);
         service.saveNote(n1);
-        service.saveNote(n2);
+        service.saveNote(n2);*/
         //service.saveNote(n3);
-        /*Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         System.out.println("Connect estabilished");
-        session.close();*/
-        /*List<Note> noteList = service.getAccount().getNotesList();
+
+        List<Note> noteList = service.getNotesList();
         Note note = noteList.get(0);
-        System.out.println(note.getTextArea().equals(service.find(12).getTextArea()));*/
+        System.out.println(note.getTextArea().equals(service.find(12).getTextArea()));
+        session.close();
+        System.out.println("Connect eclose");
     }
 }

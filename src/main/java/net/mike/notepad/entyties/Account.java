@@ -38,10 +38,6 @@ public class Account {
         this.userProfile = userProfile;
     }
 
-    public List<Note> getNotesList() {
-        return notesList;
-    }
-
     public void setNotesList(List<Note> notesList) {
         this.notesList = notesList;
     }
