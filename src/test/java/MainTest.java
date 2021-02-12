@@ -25,8 +25,11 @@ public class MainTest {
 
         List<Note> noteList = service.getNotesList();
         Note note = noteList.get(0);
-        System.out.println(note.getTextArea().equals(service.find(12).getTextArea()));
+        System.out.println(note.getTextArea());
         session.close();
         System.out.println("Connect eclose");
+        service.updateNote(note, "updateTittle", "upadateTextarea");
+        System.out.println(note.getTittle());
+        System.out.println(note.getTextArea());
     }
 }

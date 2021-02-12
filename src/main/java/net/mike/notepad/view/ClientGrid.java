@@ -1,16 +1,11 @@
 package net.mike.notepad.view;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.AbstractGridSingleSelectionModel;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
-import com.vaadin.flow.data.selection.SelectionEvent;
-import com.vaadin.flow.data.selection.SelectionListener;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -21,11 +16,8 @@ import net.mike.notepad.entyties.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
-
 public class ClientGrid extends HorizontalLayout {
 
     private Logger log = LoggerFactory.getLogger(ClientGrid.class);
@@ -36,6 +28,7 @@ public class ClientGrid extends HorizontalLayout {
 
     public ClientGrid() {
 
+        log.info("start constructor ClientGrid");
         setMinHeight("100%");
         setMaxHeight("100%");
 
@@ -51,21 +44,22 @@ public class ClientGrid extends HorizontalLayout {
         TextArea  textArea = new TextArea();
         TextArea  textFieldTittle = new TextArea();
         Note selectedNote = new Note();
-
         /*service.saveNote(n);
         service.saveNote(n1);
         service.saveNote(n2);*/
 
         grid.setItems(service.getNotesList());
+
         grid.asSingleSelect().addValueChangeListener(event -> {
             String message = String.format("Selection changed from %s to %s",
                     event.getOldValue().getId(), event.getValue().getId());
             Notification.show(message);
         });
+
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
             textFieldTittle.setValue(event.getItem().getTittle());
-            selectedNote.setId(event.getItem().getId());
+            //selectedNote = event.getItem();
         });
 
         Button saveButton = new Button("Save", event -> {

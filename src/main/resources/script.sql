@@ -1,7 +1,6 @@
-create table NOTESLIST
-(
-    ID       INT not null
-        primary key,
+create table NOTESLIST (
+    ID INT(10) NOT NULL AUTO_INCREMENT,
     TITTLE   VARCHAR(255),
-    TEXTAREA VARCHAR(255)
+    TEXTAREA VARCHAR(255),
+    PRIMARY KEY (ID)
 );

@@ -5,6 +5,7 @@ import net.mike.notepad.entyties.Note;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -39,21 +40,21 @@ public class NotesService {
 
     public List<Note> getNotesList() {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Note> criteria = builder.createQuery(Note.class);
         criteria.from(Note.class);
         notesList = session.createQuery(criteria).getResultList();
-        tx1.commit();
+        tx.commit();
         session.close();
         return notesList;
     }
 
     public boolean saveNote(Note note) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         session.save(note);
-        tx1.commit();
+        tx.commit();
         session.close();
         return true;
     }
@@ -71,8 +72,20 @@ public class NotesService {
     }
 
     public boolean updateNote(Note a, String tittle, String textArrea) {
-        a.setTextArea(textArrea);
-        a.setTittle(tittle);
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query = session.createQuery("update Note set tittle = :tittleParam, textArea = :textAreaParam" +
+                " where id = :id");
+
+        query.setParameter("tittleParam", tittle);
+        query.setParameter("textAreaParam", textArrea);
+        query.setParameter("id", a.getId());
+
+        query.executeUpdate();
+
+        tx.commit();
+        session.close();
         return true;
     }
 }
