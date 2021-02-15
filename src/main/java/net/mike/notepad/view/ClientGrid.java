@@ -39,8 +39,10 @@ public class ClientGrid extends HorizontalLayout {
         Account account = new Account(123, userProfile);
         NotesService service = new NotesService(account);
         Grid<Note> grid = new Grid<>();
-        Grid.Column<Note> tittleColumn = grid.addColumn(Note::getTittle);
-        Grid.Column<Note> dateColumn = grid.addColumn(Note::getDate);
+        //Grid.Column<Note> tittleColumn = grid.addColumn(Note::getTittle);
+        //Grid.Column<Note> dateColumn = grid.addColumn(Note::getDate);
+        grid.addColumn(Note::getTittle);
+        grid.addColumn(Note::getDate);
         TextArea  textArea = new TextArea();
         TextArea  textFieldTittle = new TextArea();
         Note selectedNote = new Note();
@@ -50,30 +52,28 @@ public class ClientGrid extends HorizontalLayout {
 
         grid.setItems(service.getNotesList());
 
-        grid.asSingleSelect().addValueChangeListener(event -> {
+       /* grid.asSingleSelect().addValueChangeListener(event -> {
             String message = String.format("Selection changed from %s to %s",
                     event.getOldValue().getId(), event.getValue().getId());
             Notification.show(message);
-        });
+        });*/
 
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
             textFieldTittle.setValue(event.getItem().getTittle());
-            //selectedNote = event.getItem();
+            selectedNote.setId(event.getItem().getId());
         });
 
         Button saveButton = new Button("Save", event -> {
                     service.updateNote(service.find(selectedNote.getId()), textFieldTittle.getValue(), textArea.getValue());
-                    grid.getDataProvider().refreshAll();
+                    grid.setItems(service.getNotesList());
                 }
         );
 
         Button button = new Button("Create a new Note", event -> {
-            Note note = new Note(114);
+            Note note = new Note();
             service.saveNote(note);
-            textArea.setValue(note.getTextArea());
-            textFieldTittle.setValue(note.getTittle());
-            grid.getDataProvider().refreshAll();
+            grid.setItems(service.getNotesList());
         });
 
         grid.setWidth("100%");

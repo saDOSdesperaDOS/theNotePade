@@ -1,40 +1,27 @@
 package net.mike.notepad.entyties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "NOTESLIST", schema = "PUBLIC", catalog = "APPSTABLES")
 public class Note implements Cloneable {
-
     @Id
-   @Column(name= "id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "id")
+    private int id;
     @Column(name = "tittle")
     private String tittle;
     @Column(name="textarea")
     private String textArea;
-    //private String date;
+    @Column(name="date")
+    private String date;
 
     public  Note() {
-
-    }
-
-    public Note(Integer id) {
-        this.id = id;
         this.tittle = " ";
         this.textArea = " ";
-       // this.date = getDate();
-    }
 
-    public Note(String textArea) {
-        this.tittle = textArea.substring(0, 25);
-        this.textArea = textArea;
-        //this.date = getDate();
     }
 
     public Note(String tittle, String textArea) {
@@ -43,22 +30,19 @@ public class Note implements Cloneable {
         //this.date = getDate();
     }
 
-    public Note(Integer id, String tittle, String textArea) {
-        this.id = id;
-        this.tittle = tittle;
-        this.textArea = textArea;
+    public void setDate() {
+        date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
     public String getDate() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
+        return date;
     }
 
-    public Integer getId() {
-
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
