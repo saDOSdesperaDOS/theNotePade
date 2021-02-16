@@ -13,7 +13,9 @@ public class MainTest {
        Account account = new Account(123, userProfile);
        Note note = new Note();
        Note note1 = new Note();
+       note.setDate();
 
-        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss")));
+        System.out.println(note.getDate());
+        System.out.println(note.getDate());
     }
 }

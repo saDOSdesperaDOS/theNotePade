@@ -21,7 +21,7 @@ public class Note implements Cloneable {
     public  Note() {
         this.tittle = " ";
         this.textArea = " ";
-
+        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
     public Note(String tittle, String textArea) {
@@ -35,7 +35,7 @@ public class Note implements Cloneable {
     }
 
     public String getDate() {
-        return date;
+        return date =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
     public int getId() {
