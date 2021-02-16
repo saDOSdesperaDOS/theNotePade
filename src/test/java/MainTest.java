@@ -13,7 +13,7 @@ public class MainTest {
        Account account = new Account(123, userProfile);
        Note note = new Note();
        Note note1 = new Note();
-       note.setDate();
+       //note.setDate();
 
         System.out.println(note.getDate());
         System.out.println(note.getDate());

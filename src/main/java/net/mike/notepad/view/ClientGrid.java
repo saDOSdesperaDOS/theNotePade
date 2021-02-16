@@ -72,7 +72,7 @@ public class ClientGrid extends HorizontalLayout {
 
         Button button = new Button("Create a new Note", event -> {
             Note note = new Note();
-            note.setDate();
+            //note.setDate();
             service.saveNote(note);
             grid.setItems(service.getNotesList());
         });

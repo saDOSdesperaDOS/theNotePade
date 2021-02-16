@@ -16,12 +16,12 @@ public class Note implements Cloneable {
     @Column(name="textarea")
     private String textArea;
     @Column(name="date")
-    private String date;
+    private LocalDateTime date;
 
     public  Note() {
         this.tittle = " ";
         this.textArea = " ";
-        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
+        //this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
     public Note(String tittle, String textArea) {
@@ -30,12 +30,12 @@ public class Note implements Cloneable {
         //this.date = getDate();
     }
 
-    public void setDate() {
+    /*public void setDate() {
         date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
-    }
+    }*/
 
-    public String getDate() {
-        return date =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
+    public LocalDateTime getDate() {
+        return date;
     }
 
     public int getId() {
