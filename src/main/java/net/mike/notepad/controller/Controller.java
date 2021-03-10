@@ -1,7 +1,6 @@
 package net.mike.notepad.controller;
 
 import net.mike.notepad.model.RegUserProfileList;
-import net.mike.notepad.entyties.Note;
 import net.mike.notepad.entyties.UserProfile;
 
 public  class Controller {

@@ -1,7 +1,7 @@
 package net.mike.notepad.services;
 
 import net.mike.notepad.entyties.Account;
-import net.mike.notepad.entyties.Note;
+import net.mike.notepad.entyties.NoteDataSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -13,7 +13,7 @@ public class NotesService {
 
     private Account account;
     private Integer noteId;
-    private List<Note>  notesList;
+   // private List<Note>  notesList;
 
 
     public NotesService(Account account) {
@@ -36,40 +36,41 @@ public class NotesService {
         this.account = account;
     }
 
-    public List<Note> getNotesList() {
+    public List<NoteDataSet> getNotesList() {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Note> criteria = builder.createQuery(Note.class);
-        criteria.from(Note.class);
-        notesList = session.createQuery(criteria).getResultList();
+        CriteriaQuery<NoteDataSet> criteria = builder.createQuery(NoteDataSet.class);
+        criteria.from(NoteDataSet.class);
+        List<NoteDataSet> notesList = session.createQuery(criteria).getResultList();
+        //session.persist(notesList);
         tx.commit();
         session.close();
         return notesList;
     }
 
-    public boolean saveNote(Note note) {
+    public boolean saveNote(NoteDataSet noteDataSet) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        session.save(note);
+        session.save(noteDataSet);
         tx.commit();
         session.close();
         return true;
     }
 
-    public Note find(Integer id) {
+    public NoteDataSet find(Integer id) {
         return this.getNotesList()
                 .stream()
                 .filter(entity -> entity.getId() == id)
                 .findFirst().get();
     }
 
-    public boolean removeNote(Note a) {
+    public boolean removeNote(NoteDataSet a) {
         this.getNotesList().remove(a);
         return true;
     }
 
-    public boolean updateNote(Note a, String tittle, String textArrea) {
+    public boolean updateNote(NoteDataSet a, String tittle, String textArrea) {
         a.setTittle(tittle);
         a.setTextArea(textArrea);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();

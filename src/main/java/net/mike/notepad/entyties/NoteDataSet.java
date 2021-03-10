@@ -2,11 +2,10 @@ package net.mike.notepad.entyties;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "NOTESLIST", schema = "PUBLIC", catalog = "APPSTABLES")
-public class Note implements Cloneable {
+public class NoteDataSet implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "id")
@@ -18,16 +17,15 @@ public class Note implements Cloneable {
     @Column(name="date")
     private LocalDateTime date;
 
-    public  Note() {
+    public NoteDataSet() {
         this.tittle = " ";
         this.textArea = " ";
         //this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
-    public Note(String tittle, String textArea) {
+    public NoteDataSet(String tittle, String textArea) {
         this.tittle = tittle;
         this.textArea = textArea;
-        //this.date = getDate();
     }
 
     /*public void setDate() {
@@ -67,11 +65,11 @@ public class Note implements Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Note note = (Note) o;
+        NoteDataSet noteDataSet = (NoteDataSet) o;
 
-        if (id != note.id) return false;
-        if (!tittle.equals(note.tittle)) return false;
-        return textArea.equals(note.textArea);
+        if (id != noteDataSet.id) return false;
+        if (!tittle.equals(noteDataSet.tittle)) return false;
+        return textArea.equals(noteDataSet.textArea);
     }
 
     @Override
@@ -83,9 +81,9 @@ public class Note implements Cloneable {
     }
 
     @Override
-    public Note clone() { //NOSONAR
+    public NoteDataSet clone() { //NOSONAR
         try {
-            return (Note) super.clone();
+            return (NoteDataSet) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(
                     "The Note object could not be cloned.", e);

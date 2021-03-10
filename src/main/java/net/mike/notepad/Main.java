@@ -5,9 +5,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import net.mike.notepad.entyties.Account;
-import net.mike.notepad.entyties.Note;
-import net.mike.notepad.entyties.UserProfile;
 
 @Route
 @Theme(variant = Lumo.DARK, value = Lumo.class )

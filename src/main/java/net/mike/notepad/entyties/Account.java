@@ -8,7 +8,7 @@ public class Account {
    // private int id;//у каждого экземпляра id == 0
     private int id;
     private UserProfile userProfile;
-    private List<Note>  notesList;
+    private List<NoteDataSet>  notesList;
 
     public Account(int id, UserProfile userProfile) {
         this.id = id;
@@ -16,7 +16,7 @@ public class Account {
         notesList = new ArrayList<>();
     }
 
-    public Account(int id, UserProfile userProfile, List<Note> notesList) {
+    public Account(int id, UserProfile userProfile, List<NoteDataSet> notesList) {
         this.id = id;
         this.userProfile = userProfile;
         this.notesList = notesList;
@@ -38,7 +38,7 @@ public class Account {
         this.userProfile = userProfile;
     }
 
-    public void setNotesList(List<Note> notesList) {
+    public void setNotesList(List<NoteDataSet> notesList) {
         this.notesList = notesList;
     }
 
