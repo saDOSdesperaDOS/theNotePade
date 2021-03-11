@@ -38,6 +38,7 @@ public class ClientGrid extends HorizontalLayout {
         TextArea  textFieldTittle = new TextArea();
         NoteDataSet selectedNoteDataSet = new NoteDataSet();
 
+        //наполняем grid
         Grid<NoteDataSet> grid = new Grid<>();
         grid.addColumn(NoteDataSet::getTittle);
         grid.addColumn(NoteDataSet::getDate);
@@ -75,6 +76,12 @@ public class ClientGrid extends HorizontalLayout {
             grid.setItems(service.getNotesList());
         });
 
+        Button removeButton = new Button("Trash", event -> {
+           service.removeNote(selectedNoteDataSet);
+           grid.setItems(service.getNotesList());
+        });
+
+        //разметка страницы
         grid.setWidth("100%");
         textArea.setWidth("100%");
         textFieldTittle.setWidth("100%");
@@ -86,7 +93,7 @@ public class ClientGrid extends HorizontalLayout {
         layoutVerticalLeft.setMaxHeight("100%");
         layoutVerticalRight.setMinHeight("100%");
         layoutVerticalRight.setMaxHeight("100%");
-        horizontalLayout.add(greateNewNoteButton, saveButton, updateButton);
+        horizontalLayout.add(greateNewNoteButton, saveButton, updateButton, removeButton);
         layoutVerticalRight.add(horizontalLayout, textFieldTittle, textArea);
         layoutVerticalLeft.add(grid);
 

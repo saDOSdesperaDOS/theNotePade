@@ -1,5 +1,6 @@
 package net.mike.notepad.services;
 
+import com.vaadin.flow.component.notification.Notification;
 import net.mike.notepad.entyties.Account;
 import net.mike.notepad.entyties.NoteDataSet;
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.io.Serializable;
 import java.util.List;
 
 public class NotesService {
@@ -43,13 +45,12 @@ public class NotesService {
         CriteriaQuery<NoteDataSet> criteria = builder.createQuery(NoteDataSet.class);
         criteria.from(NoteDataSet.class);
         List<NoteDataSet> notesList = session.createQuery(criteria).getResultList();
-        //session.persist(notesList);
         tx.commit();
         session.close();
         return notesList;
     }
 
-    public boolean saveNote(NoteDataSet noteDataSet) {
+    public Serializable saveNote(NoteDataSet noteDataSet) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(noteDataSet);
@@ -65,12 +66,16 @@ public class NotesService {
                 .findFirst().get();
     }
 
-    public boolean removeNote(NoteDataSet a) {
-        this.getNotesList().remove(a);
-        return true;
+    public void removeNote(NoteDataSet a) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.remove(a);
+        tx.commit();
+        session.close();
+        Notification.show("note deleted");
     }
 
-    public boolean updateNote(NoteDataSet a, String tittle, String textArrea) {
+    public void updateNote(NoteDataSet a, String tittle, String textArrea) {
         a.setTittle(tittle);
         a.setTextArea(textArrea);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
@@ -78,6 +83,5 @@ public class NotesService {
         session.update(a);
         tx.commit();
         session.close();
-        return true;
     }
 }
