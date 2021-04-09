@@ -1,17 +1,17 @@
 package net.mike.notepad.model;
 
-import net.mike.notepad.entyties.UserProfile;
+import net.mike.notepad.entyties.UserProfileDataSet;
 
 import java.util.HashMap;
 
 public class RegUserProfileList {
-    private static HashMap<Long, UserProfile> instance;
+    private static HashMap<Long, UserProfileDataSet> instance;
 
     private RegUserProfileList() {
-        instance =  new HashMap<Long, UserProfile>();
+        instance =  new HashMap<Long, UserProfileDataSet>();
     }
 
-    public static HashMap<Long, UserProfile> getInstance() {
+    public static HashMap<Long, UserProfileDataSet> getInstance() {
         if (instance == null) {
             RegUserProfileList regUserProfileList = new RegUserProfileList();
         }

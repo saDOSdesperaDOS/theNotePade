@@ -9,13 +9,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.entyties.Account;
-import net.mike.notepad.entyties.UserProfile;
+import net.mike.notepad.entyties.UserProfileDataSet;
 import net.mike.notepad.services.NotesService;
 import net.mike.notepad.entyties.NoteDataSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
@@ -31,8 +29,8 @@ public class ClientGrid extends HorizontalLayout {
         VerticalLayout layoutVerticalRight = new VerticalLayout();
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-        UserProfile userProfile = new UserProfile(123, "email", "password");
-        Account account = new Account(123, userProfile);
+        UserProfileDataSet userProfileDataSet = new UserProfileDataSet(123, "email", "password");
+        Account account = new Account(123, userProfileDataSet);
         NotesService service = new NotesService(account);
         TextArea  textArea = new TextArea();
         TextArea  textFieldTittle = new TextArea();

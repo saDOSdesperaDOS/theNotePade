@@ -1,12 +1,12 @@
 package net.mike.notepad.entyties;
 
-public class UserProfile {
+public class UserProfileDataSet {
 
     private int id;//у каждого экземпляра id == 0
     private String email;
     private String pass;
 
-    public UserProfile(int id, String email, String pass) {
+    public UserProfileDataSet(int id, String email, String pass) {
         this.id = id;
         this.email = email;
         this.pass = pass;
@@ -41,11 +41,11 @@ public class UserProfile {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserProfile that = (UserProfile) o;
+        UserProfileDataSet other = (UserProfileDataSet) o;
 
-        if (id != that.id) return false;
-        if (!email.equals(that.email)) return false;
-        return pass.equals(that.pass);
+        if (id != other.id) return false;
+        if (!email.equals(other.email)) return false;
+        return pass.equals(other.pass);
     }
 
     @Override
