@@ -8,7 +8,7 @@
     <artifactId>theNotePad</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>NotePad</name>
+    <name>theNotePad</name>
     <packaging>war</packaging>
 
     <properties>

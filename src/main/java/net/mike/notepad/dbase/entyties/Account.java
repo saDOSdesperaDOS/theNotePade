@@ -7,18 +7,18 @@ public class Account {
 
    // private int id;//у каждого экземпляра id == 0
     private int id;
-    private UserProfileDataSet userProfileDataSet;
+    private UserDataSet userDataSet;
     private List<NoteDataSet>  notesList;
 
-    public Account(int id, UserProfileDataSet userProfileDataSet) {
+    public Account(int id, UserDataSet userDataSet) {
         this.id = id;
-        this.userProfileDataSet = userProfileDataSet;
+        this.userDataSet = userDataSet;
         notesList = new ArrayList<>();
     }
 
-    public Account(int id, UserProfileDataSet userProfileDataSet, List<NoteDataSet> notesList) {
+    public Account(int id, UserDataSet userDataSet, List<NoteDataSet> notesList) {
         this.id = id;
-        this.userProfileDataSet = userProfileDataSet;
+        this.userDataSet = userDataSet;
         this.notesList = notesList;
     }
 
@@ -30,12 +30,12 @@ public class Account {
         this.id = id;
     }
 
-    public UserProfileDataSet getUserProfileDataSet() {
-        return userProfileDataSet;
+    public UserDataSet getUserDataSet() {
+        return userDataSet;
     }
 
-    public void setUserProfileDataSet(UserProfileDataSet userProfileDataSet) {
-        this.userProfileDataSet = userProfileDataSet;
+    public void setUserDataSet(UserDataSet userDataSet) {
+        this.userDataSet = userDataSet;
     }
 
     public void setNotesList(List<NoteDataSet> notesList) {
@@ -50,14 +50,14 @@ public class Account {
         Account account = (Account) o;
 
         if (id != account.id) return false;
-        if (!userProfileDataSet.equals(account.userProfileDataSet)) return false;
+        if (!userDataSet.equals(account.userDataSet)) return false;
         return notesList.equals(account.notesList);
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + userProfileDataSet.hashCode();
+        result = 31 * result + userDataSet.hashCode();
         result = 31 * result + notesList.hashCode();
         return result;
     }
@@ -66,7 +66,7 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", userProfile=" + userProfileDataSet +
+                ", userProfile=" + userDataSet +
                 ", notesList=" + notesList +
                 '}';
     }

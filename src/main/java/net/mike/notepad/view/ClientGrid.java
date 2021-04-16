@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.dbase.entyties.Account;
-import net.mike.notepad.dbase.entyties.UserProfileDataSet;
+import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.NotesService;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import org.slf4j.Logger;
@@ -29,8 +29,8 @@ public class ClientGrid extends HorizontalLayout {
         VerticalLayout layoutVerticalRight = new VerticalLayout();
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-        UserProfileDataSet userProfileDataSet = new UserProfileDataSet(123, "email", "password");
-        Account account = new Account(123, userProfileDataSet);
+        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
+        Account account = new Account(123, userDataSet);
         NotesService service = new NotesService(account);
         TextArea  textArea = new TextArea();
         TextArea  textFieldTittle = new TextArea();

@@ -1,6 +1,6 @@
 import net.mike.notepad.dbase.entyties.Account;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
-import net.mike.notepad.dbase.entyties.UserProfileDataSet;
+import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.NotesService;
 
 public class MainTest {
@@ -15,8 +15,8 @@ public class MainTest {
     }
 
     static void saveServiceTest() {
-        UserProfileDataSet userProfileDataSet = new UserProfileDataSet(123, "email", "password");
-        Account account = new Account(123, userProfileDataSet);
+        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
+        Account account = new Account(123, userDataSet);
         NoteDataSet noteDataSet = new NoteDataSet();
         noteDataSet.setTittle("333333333333");
         noteDataSet.setTextArea("aaaaaaaaaaaaaaaaaa");
@@ -29,8 +29,8 @@ public class MainTest {
     }
 
     static void updateServiceTest() {
-        UserProfileDataSet userProfileDataSet = new UserProfileDataSet(123, "email", "password");
-        Account account = new Account(123, userProfileDataSet);
+        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
+        Account account = new Account(123, userDataSet);
         NotesService service = new NotesService(account);
         NoteDataSet noteDataSet = service.getNotesList().get(service.getNotesList().size() - 1);
         //test update service
@@ -42,8 +42,8 @@ public class MainTest {
     }
 
     static void removeServiceTest() {
-        UserProfileDataSet userProfileDataSet = new UserProfileDataSet(123, "email", "password");
-        Account account = new Account(123, userProfileDataSet);
+        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
+        Account account = new Account(123, userDataSet);
         NotesService service = new NotesService(account);
         NoteDataSet noteDataSet = service.getNotesList().get(service.getNotesList().size() - 1);
         System.out.println(service.getNotesList().size());
