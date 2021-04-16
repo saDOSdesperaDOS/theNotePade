@@ -1,7 +1,7 @@
 package net.mike.notepad.controller;
 
 import net.mike.notepad.model.RegUserProfileList;
-import net.mike.notepad.entyties.UserProfileDataSet;
+import net.mike.notepad.dbase.entyties.UserProfileDataSet;
 
 public  class Controller {
     private static Long id;

@@ -1,6 +1,6 @@
-package net.mike.notepad.services;
+package net.mike.notepad.dbase.services;
 
-import net.mike.notepad.entyties.NoteDataSet;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

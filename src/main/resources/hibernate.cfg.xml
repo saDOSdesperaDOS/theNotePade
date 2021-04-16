@@ -12,7 +12,7 @@
         <!--and will be:  Initial SessionFactory failedorg.hibernate.service.spi.ServiceException: Unable to create requested service-->
         <property name="connection.username">sa</property>
         <!-- NOTE that after automapping with IDEA property username and password will delete -->
-        <mapping class="net.mike.notepad.entyties.NoteDataSet"/>
+        <mapping class="net.mike.notepad.dbase.entyties.NoteDataSet"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

@@ -8,10 +8,10 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import net.mike.notepad.entyties.Account;
-import net.mike.notepad.entyties.UserProfileDataSet;
-import net.mike.notepad.services.NotesService;
-import net.mike.notepad.entyties.NoteDataSet;
+import net.mike.notepad.dbase.entyties.Account;
+import net.mike.notepad.dbase.entyties.UserProfileDataSet;
+import net.mike.notepad.dbase.services.NotesService;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

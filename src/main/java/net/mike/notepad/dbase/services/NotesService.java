@@ -1,8 +1,8 @@
-package net.mike.notepad.services;
+package net.mike.notepad.dbase.services;
 
 import com.vaadin.flow.component.notification.Notification;
-import net.mike.notepad.entyties.Account;
-import net.mike.notepad.entyties.NoteDataSet;
+import net.mike.notepad.dbase.entyties.Account;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

@@ -1,4 +1,4 @@
-package net.mike.notepad.entyties;
+package net.mike.notepad.dbase.entyties;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

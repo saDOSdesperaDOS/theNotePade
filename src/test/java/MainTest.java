@@ -1,7 +1,7 @@
-import net.mike.notepad.entyties.Account;
-import net.mike.notepad.entyties.NoteDataSet;
-import net.mike.notepad.entyties.UserProfileDataSet;
-import net.mike.notepad.services.NotesService;
+import net.mike.notepad.dbase.entyties.Account;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
+import net.mike.notepad.dbase.entyties.UserProfileDataSet;
+import net.mike.notepad.dbase.services.NotesService;
 
 public class MainTest {
     public static void main(String... args) {
