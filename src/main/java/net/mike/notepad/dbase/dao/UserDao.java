@@ -12,13 +12,13 @@ public class UserDao implements InitDao {
     public UserDao(Session session) {
         this.session = session;
     }
-
+    @Override
     public UserDataSet get(long id) throws HibernateException {
-        return (UserDataSet) session.get(UserDataSet.class, id);
+        return session.get(UserDataSet.class, id);
     }
-
+    @Override
     //вернет -1 если такого пользователя нет в базе
-    public long getUserId(String login) {
+    public long getId(String login) {
         try {
             Criteria criteria = session.createCriteria(UserDataSet.class);
             return ((UserDataSet) criteria.add(Restrictions.eq("login", login)).uniqueResult()).getId();
@@ -26,8 +26,8 @@ public class UserDao implements InitDao {
             return new UserDataSet(login).getId();
         }
     }
-
-    public long insertUser(String login, String password) throws HibernateException {
+    @Override
+    public long insert(String login, String password) throws HibernateException {
         return (long) session.save(new UserDataSet(login, password));
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "public")
 public class UserDataSet implements Serializable { // Serializable Important to Hibernate!
 
     private static final long serialVersionUID = -8706689714326132798L;
@@ -38,6 +38,12 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     public UserDataSet(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public UserDataSet(long id, String login, String password) {
+        this.setId(id);
+        this.setLogin(login);
+        this.setPassword(password);
     }
 
     public long getId() {

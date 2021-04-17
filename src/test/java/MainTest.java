@@ -1,27 +1,45 @@
+import net.mike.notepad.dbase.dao.NoteDao;
+import net.mike.notepad.dbase.services.DBService;
 import net.mike.notepad.dbase.entyties.Account;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.NotesService;
+import org.hibernate.Session;
 
 public class MainTest {
     public static void main(String... args) {
-      //saveServiceTest(); ok
-        //updateServiceTest(); ok
-        //removeServiceTest(); ok
-
-
-
+        //DBServiceTest();
+        //getNoteListTest();
+        //saveServiceTest();
+      //updateServiceTest();
+      //removeServiceTest();
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        NoteDao noteDao = new NoteDao(session);
+        System.out.println(noteDao.getId("333333333333"));
 
     }
 
-    static void saveServiceTest() {
-        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
-        Account account = new Account(123, userDataSet);
+    static void DBServiceTest() {
+        DBService dbService = new DBService();
+        dbService.printConnectInfo();
+
+    }
+
+    static void getNoteListTest() {
         NoteDataSet noteDataSet = new NoteDataSet();
         noteDataSet.setTittle("333333333333");
         noteDataSet.setTextArea("aaaaaaaaaaaaaaaaaa");
-        //note.setDate();
-        NotesService service = new NotesService(account);
+        NotesService service = new NotesService();
+        service.saveNote(noteDataSet);
+        System.out.println(service.getNotesList().size());
+    }
+
+    static void saveServiceTest() {
+        NoteDataSet noteDataSet = new NoteDataSet();
+        noteDataSet.setTittle("333333333333");
+        noteDataSet.setTextArea("aaaaaaaaaaaaaaaaaa");
+        NotesService service = new NotesService();
         //test save service
         System.out.println(service.getNotesList().size());
         service.saveNote(noteDataSet);
@@ -29,9 +47,7 @@ public class MainTest {
     }
 
     static void updateServiceTest() {
-        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
-        Account account = new Account(123, userDataSet);
-        NotesService service = new NotesService(account);
+        NotesService service = new NotesService();
         NoteDataSet noteDataSet = service.getNotesList().get(service.getNotesList().size() - 1);
         //test update service
         System.out.println("old tittle - " + noteDataSet.getTittle());
@@ -42,9 +58,7 @@ public class MainTest {
     }
 
     static void removeServiceTest() {
-        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
-        Account account = new Account(123, userDataSet);
-        NotesService service = new NotesService(account);
+        NotesService service = new NotesService();
         NoteDataSet noteDataSet = service.getNotesList().get(service.getNotesList().size() - 1);
         System.out.println(service.getNotesList().size());
         service.removeNote(noteDataSet);

@@ -29,9 +29,7 @@ public class ClientGrid extends HorizontalLayout {
         VerticalLayout layoutVerticalRight = new VerticalLayout();
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-        UserDataSet userDataSet = new UserDataSet(123, "email", "password");
-        Account account = new Account(123, userDataSet);
-        NotesService service = new NotesService(account);
+        NotesService service = new NotesService();
         TextArea  textArea = new TextArea();
         TextArea  textFieldTittle = new TextArea();
         NoteDataSet selectedNoteDataSet = new NoteDataSet();

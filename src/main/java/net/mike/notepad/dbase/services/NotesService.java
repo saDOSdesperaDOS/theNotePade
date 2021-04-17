@@ -13,14 +13,9 @@ import java.util.List;
 
 public class NotesService {
 
-    private Account account;
     private Integer noteId;
    // private List<Note>  notesList;
 
-
-    public NotesService(Account account) {
-        this.account = account;
-    }
 
     public Integer getNoteId() {
         return noteId;
@@ -30,16 +25,9 @@ public class NotesService {
         this.noteId = noteId;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public List<NoteDataSet> getNotesList() {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<NoteDataSet> criteria = builder.createQuery(NoteDataSet.class);
@@ -51,7 +39,8 @@ public class NotesService {
     }
 
     public Serializable saveNote(NoteDataSet noteDataSet) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(noteDataSet);
         tx.commit();
@@ -67,18 +56,19 @@ public class NotesService {
     }
 
     public void removeNote(NoteDataSet a) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.remove(a);
         tx.commit();
         session.close();
-        Notification.show("note deleted");
     }
 
     public void updateNote(NoteDataSet a, String tittle, String textArrea) {
         a.setTittle(tittle);
         a.setTextArea(textArrea);
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(a);
         tx.commit();

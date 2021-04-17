@@ -1,14 +1,15 @@
 package net.mike.notepad.dbase.entyties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "NOTESLIST", schema = "PUBLIC", catalog = "APPSTABLES")
-public class NoteDataSet implements Cloneable {
+@Table(name = "notes", schema = "public")
+public class NoteDataSet implements Serializable, Cloneable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "tittle")
     private String tittle;
@@ -17,10 +18,16 @@ public class NoteDataSet implements Cloneable {
     @Column(name="date")
     private LocalDateTime date;
 
+
     public NoteDataSet() {
         this.tittle = " ";
         this.textArea = " ";
         //this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
+    }
+
+    public NoteDataSet(String tittle) {
+        this.setTittle(tittle);
+        this.setTextArea(textArea);
     }
 
     public NoteDataSet(String tittle, String textArea) {
