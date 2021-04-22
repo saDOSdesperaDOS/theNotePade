@@ -1,23 +1,20 @@
 package net.mike.notepad.dbase.services;
 
-import com.vaadin.flow.component.notification.Notification;
-import net.mike.notepad.dbase.entyties.Account;
+import net.mike.notepad.dbase.dao.NoteDao;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
 
 public class NotesService {
 
-    private Integer noteId;
+    private long noteId;
    // private List<Note>  notesList;
 
 
-    public Integer getNoteId() {
+    public long getNoteId() {
         return noteId;
     }
 
@@ -28,11 +25,9 @@ public class NotesService {
     public List<NoteDataSet> getNotesList() {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
+        NoteDao noteDao = new NoteDao(session);
         Transaction tx = session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<NoteDataSet> criteria = builder.createQuery(NoteDataSet.class);
-        criteria.from(NoteDataSet.class);
-        List<NoteDataSet> notesList = session.createQuery(criteria).getResultList();
+        List<NoteDataSet> notesList = noteDao.getList();
         tx.commit();
         session.close();
         return notesList;
@@ -41,36 +36,41 @@ public class NotesService {
     public Serializable saveNote(NoteDataSet noteDataSet) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
+        NoteDao noteDao = new NoteDao(session);
         Transaction tx = session.beginTransaction();
-        session.save(noteDataSet);
+        noteDao.insert(noteDataSet);
         tx.commit();
         session.close();
         return true;
     }
 
-    public NoteDataSet find(Integer id) {
-        return this.getNotesList()
-                .stream()
-                .filter(entity -> entity.getId() == id)
-                .findFirst().get();
+    public NoteDataSet find(long id) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        NoteDao noteDao = new NoteDao(session);
+        Transaction tx = session.beginTransaction();
+        NoteDataSet noteDataSet = noteDao.find(id);
+        tx.commit();
+        session.close();
+        return noteDataSet;
     }
 
     public void removeNote(NoteDataSet a) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
+        NoteDao noteDao = new NoteDao(session);
         Transaction tx = session.beginTransaction();
-        session.remove(a);
+        noteDao.remove(a);
         tx.commit();
         session.close();
     }
 
     public void updateNote(NoteDataSet a, String tittle, String textArrea) {
-        a.setTittle(tittle);
-        a.setTextArea(textArrea);
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
+        NoteDao noteDao = new NoteDao(session);
         Transaction tx = session.beginTransaction();
-        session.update(a);
+        noteDao.updateNote(a, tittle, textArrea);
         tx.commit();
         session.close();
     }
