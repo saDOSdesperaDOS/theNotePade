@@ -22,19 +22,18 @@ public class UserDao implements InitDao {
     }
     @Override
     //вернет -1 если такого пользователя нет в базе
-    public long getId(String login) {
+    public long getId(String email) {
         try {
-            TypedQuery<NoteDataSet> query = session.createQuery("select i from UserDataSet i where i.login = :login").setParameter("login", login);
+            TypedQuery<NoteDataSet> query = session.createQuery("select i from UserDataSet i where i.email = :email").setParameter("email", email);
             return query.getSingleResult().getId();
         } catch (NullPointerException e) {
             return -1;
         }
     }
     @Override
-    public long insert(String login, String password) throws HibernateException {
-        return (long) session.save(new UserDataSet(login, password));
+    public long insert(String email, String password) throws HibernateException {
+        return (long) session.save(new UserDataSet(email, password));
     }
-
     @Override
     public List<UserDataSet> getList() {
         return null;

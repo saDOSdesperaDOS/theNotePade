@@ -1,6 +1,7 @@
 package net.mike.notepad.dbase.entyties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -14,8 +15,12 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "login", unique = true, updatable = false)
-    private String login;
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
+    @Column(name = "email", unique = true, updatable = false)
+    private String email;
 
     @Column(name = "password", updatable = false)
     private String password;
@@ -25,24 +30,24 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     public UserDataSet() {
     }
 
-    public UserDataSet(long id, String login) {
+    public UserDataSet(long id, String email) {
         this.setId(id);
-        this.setLogin(login);
+        this.setEmail(email);
     }
 
-    public UserDataSet(String login) {
+    public UserDataSet(String email) {
         this.setId(-1);
-        this.setLogin(login);
+        this.setEmail(email);
     }
 
-    public UserDataSet(String login, String password) {
-        this.login = login;
+    public UserDataSet(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public UserDataSet(long id, String login, String password) {
+    public UserDataSet(long id, String email, String password) {
         this.setId(id);
-        this.setLogin(login);
+        this.setEmail(email);
         this.setPassword(password);
     }
 
@@ -54,12 +59,12 @@ public class UserDataSet implements Serializable { // Serializable Important to 
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -74,7 +79,7 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     public String toString() {
         return "UserDataSet{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

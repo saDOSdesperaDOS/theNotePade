@@ -19,7 +19,7 @@ public class NoteDao implements InitDao {
     }
 
     @Override
-    //вернет -1 если такого пользователя нет в базе
+    //вернет -1 если такого заметки нет в базе
     public long getId(String tittle) {
         try {
             TypedQuery<NoteDataSet> query = session.createQuery("select i from NoteDataSet i where i.tittle = :tittle").setParameter("tittle", tittle);
