@@ -1,9 +1,9 @@
 import net.mike.notepad.dbase.dao.NoteDao;
 import net.mike.notepad.dbase.services.DBService;
-import net.mike.notepad.dbase.entyties.Account;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
-import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.NotesService;
+import net.mike.notepad.dbase.services.UserService;
+import net.mike.notepad.view.EmailCheckView;
 import org.hibernate.Session;
 
 public class MainTest {
@@ -13,10 +13,17 @@ public class MainTest {
         //saveServiceTest();
       //updateServiceTest();
       //removeServiceTest();
-        DBService dbService = new DBService();
+        /*DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         NoteDao noteDao = new NoteDao(session);
-        System.out.println(noteDao.getId("333333333333"));
+        System.out.println(noteDao.getId("333333333333"));*/
+        UserService userService = new UserService();
+        //userService.addUser("bnfg@gmail.com", "pas1234");
+       // userService.addUser("drgv@ewrg.com", "erhrrth");
+        //userService.addUser("bms39rus@gmail.com", "erhfbhgtrrth");
+        EmailCheckView checkView = new EmailCheckView();
+        checkView.check("bms39rus@gmail.com");
+        checkView.send("bms39rus@gmail.com");
 
     }
 

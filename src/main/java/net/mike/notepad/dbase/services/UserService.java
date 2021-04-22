@@ -1,8 +1,6 @@
 package net.mike.notepad.dbase.services;
 
-import net.mike.notepad.dbase.dao.NoteDao;
 import net.mike.notepad.dbase.dao.UserDao;
-import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -50,6 +48,17 @@ public class UserService {
         Transaction transaction = session.beginTransaction();
         UserDao dao = new UserDao(session);
         long id = dao.insert(email, password);
+        transaction.commit();
+        session.close();
+        return id;
+    }
+
+    public long addUser(UserDataSet userDataSet) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        UserDao dao = new UserDao(session);
+        long id = dao.insert(userDataSet);
         transaction.commit();
         session.close();
         return id;

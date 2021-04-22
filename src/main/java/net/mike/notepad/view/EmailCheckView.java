@@ -13,6 +13,7 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,13 +25,13 @@ public class EmailCheckView extends Div {
 	  
 		EmailField email = new EmailField("email");
 		Button checkEmailButton = new Button("check");
-		String a = "a"; 
-		
+
 		add(email, checkEmailButton);
 	//ТАК ОБРАБОТЧИК СОБЫТИЯ РАБОТАЕТ С ПЕРВОГО РАЗА	 
 		   checkEmailButton.addClickListener( e-> {
 			   										if(check(email.getValue())) {
-			   											new UserDataSet(email.getValue());
+			   											UserService userService = new UserService();
+			   											userService.addUser(new UserDataSet(email.getValue()));
 			   											checkEmailButton.getUI().ifPresent(ui -> ui.navigate("confirm"));
 			   										}
 	      	    							  	  }
@@ -45,7 +46,8 @@ public class EmailCheckView extends Div {
 	//Проверяем email на regex и на busy 
 		public boolean check(String email) {
 			UserService userService = new UserService();
-	     		if(regExpValidator(email)&&!userService.getUsersList().contains(email)) {
+			long id = userService.getUserId(email);
+	     		if(regExpValidator(email) && !userService.getUsersList().contains(userService.getUser(id))) {
 						send(email);
 	              Notification.show("Verification code sent to your email");
 	              return true;

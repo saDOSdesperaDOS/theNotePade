@@ -15,7 +15,7 @@ public class SignUpFormView extends VerticalLayout {
 	public SignUpFormView() {
 		
 		final FormLayout form = new FormLayout();
-		EmailField email = new EmailField();
+		EmailField email = new EmailField("Email");
 		PasswordField pass = new PasswordField("Password");
 		PasswordField confirmPass = new PasswordField("Confirm Password");
 		/*create an instance that provides methods for servicing the Account entity*/
