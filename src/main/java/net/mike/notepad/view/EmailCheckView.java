@@ -22,6 +22,8 @@ public class EmailCheckView extends Div {
 			   mailer = new Mailer();
 			   userService = new UserService();
 			   if(mailer.regExpValidator(email.getValue()) && !userService.isRegistered(email.getValue())) {
+			   	UserDataSet userDataSet = new UserDataSet(email.getValue());
+			   	userService.addUser(userDataSet);
 			   	mailer.send(email.getValue());
 			   	checkEmailButton.getUI().ifPresent(ui -> ui.navigate("confirm"));
 			   } else {

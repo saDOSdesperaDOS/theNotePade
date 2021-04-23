@@ -1,4 +1,5 @@
 import net.mike.notepad.dbase.dao.NoteDao;
+import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.DBService;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.services.NotesService;
@@ -26,6 +27,8 @@ public class MainTest {
        // System.out.println(userService.getUserId("drgv@ewrg.com"));
        // System.out.println("1 check " + userService.isRegistered("drgv@ewrg.com"));
         //System.out.println("2 check " + userService.isRegistered("sfdgsgwerfdbhrtfhb@thhgv@ewrg.com"));
+        UserDataSet userDataSet = new UserDataSet("wefgwefg@fgbhrthnrt.com");
+        userService.addUser(userDataSet);
     }
 
     static void DBServiceTest() {

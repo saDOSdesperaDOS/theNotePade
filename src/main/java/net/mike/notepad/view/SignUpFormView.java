@@ -6,28 +6,35 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import net.mike.notepad.dbase.services.UserService;
+import net.mike.notepad.utils.Mailer;
 
 @Route("signup")
 public class SignUpFormView extends VerticalLayout {
-	
+	Mailer mailer;
+	UserService userService;
 	public SignUpFormView() {
 		
 		final FormLayout form = new FormLayout();
+		TextField userName = new TextField("UserName");
 		EmailField email = new EmailField("Email");
 		PasswordField pass = new PasswordField("Password");
 		PasswordField confirmPass = new PasswordField("Confirm Password");
 		/*create an instance that provides methods for servicing the Account entity*/
-		UserService userService = new UserService();
-		Button b = new Button("Register");
-		
-		  form.add(email ,pass, confirmPass, b);
+		Button b = new Button("Greate Account");
+
+		  form.add(userName, email ,pass, confirmPass, b);
 		  b.addClickListener( e-> {
-					userService.addUser(email.getValue(), pass.getValue());
-					Notification.show("Your account created.");
-					b.getUI().ifPresent(ui -> ui.navigate("login"));
-			  });
+			   mailer = new Mailer();
+			   userService = new UserService();
+			  if(mailer.regExpValidator(email.getValue()) && !userService.isRegistered(email.getValue())) {
+				  mailer.send(email.getValue());
+				  Notification.show()
+				  b.getUI().ifPresent(ui -> ui.navigate("confirm"));
+			  }
+		  });
 		  
 		  setWidth("25%");
 		  setHeight("65%");
