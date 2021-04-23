@@ -18,19 +18,19 @@ public class MainTest {
         NoteDao noteDao = new NoteDao(session);
         System.out.println(noteDao.getId("333333333333"));*/
         UserService userService = new UserService();
-        //userService.addUser("bnfg@gmail.com", "pas1234");
+       // userService.addUser("bnfg@gmail.com", "pas1234");
        // userService.addUser("drgv@ewrg.com", "erhrrth");
         //userService.addUser("bms39rus@gmail.com", "erhfbhgtrrth");
-        EmailCheckView checkView = new EmailCheckView();
-        checkView.check("bms39rus@gmail.com");
-        checkView.send("bms39rus@gmail.com");
-
+       // System.out.println(userService.getUsersList().size());
+        //System.out.println(userService.getUser(3).getEmail());
+       // System.out.println(userService.getUserId("drgv@ewrg.com"));
+       // System.out.println("1 check " + userService.isRegistered("drgv@ewrg.com"));
+        //System.out.println("2 check " + userService.isRegistered("sfdgsgwerfdbhrtfhb@thhgv@ewrg.com"));
     }
 
     static void DBServiceTest() {
         DBService dbService = new DBService();
         dbService.printConnectInfo();
-
     }
 
     static void getNoteListTest() {

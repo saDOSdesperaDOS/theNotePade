@@ -70,7 +70,7 @@ public class UserService {
         Transaction transaction = session.beginTransaction();
         try {
             UserDao dao = new UserDao(session);
-            dao.getId(email);
+            if(dao.getId(email) == -1) return false;
         } catch (ConstraintViolationException e) {
             return false;
         } finally {

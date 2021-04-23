@@ -9,7 +9,10 @@ import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserDao implements InitDao {
     private Session session;
@@ -30,7 +33,7 @@ public class UserDao implements InitDao {
         } catch (NullPointerException e) {
             return -1;
         } catch (NoResultException e) {
-            System.out.println("the table users is empty");
+            Logger.getGlobal().info("there is no such user");
             return  -1;
         }
     }
@@ -44,6 +47,9 @@ public class UserDao implements InitDao {
     }
     @Override
     public List<UserDataSet> getList() {
-        return null;
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<UserDataSet> criteria = builder.createQuery(UserDataSet.class);
+        criteria.from(UserDataSet.class);
+        return session.createQuery(criteria).getResultList();
     }
 }

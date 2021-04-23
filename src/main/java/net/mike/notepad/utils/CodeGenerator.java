@@ -1,4 +1,4 @@
-package net.mike.notepad.dbase.services;
+package net.mike.notepad.utils;
 
 import java.util.Random;
 
