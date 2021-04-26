@@ -1,11 +1,8 @@
-import net.mike.notepad.dbase.dao.NoteDao;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.DBService;
-import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.services.NotesService;
 import net.mike.notepad.dbase.services.UserService;
-import net.mike.notepad.view.EmailCheckView;
-import org.hibernate.Session;
 
 public class MainTest {
     public static void main(String... args) {

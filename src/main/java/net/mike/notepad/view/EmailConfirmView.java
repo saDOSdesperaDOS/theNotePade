@@ -5,7 +5,6 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.utils.CodeGenerator;
 
 @Route("confirm")
@@ -20,13 +19,11 @@ public class EmailConfirmView extends Div {
 	    button.addClickListener(click -> {
 	    	if (clientCode.getValue().equals(CodeGenerator.getInstance().getCode())) {
 				Notification.show("Your email is verifyng");
-	    		button.getUI().ifPresent(ui -> ui.navigate("signup"));
-
+	    		button.getUI().ifPresent(ui -> ui.navigate("signin"));
 	    		}
 	    	else {
 	    		clientCode.clear();
 	    		Notification.show("Your email is NOT verifyng");
-	    		  
 	    	}
 	    });
 		setWidth("25%");

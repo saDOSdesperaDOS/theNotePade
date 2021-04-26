@@ -1,11 +1,8 @@
 package net.mike.notepad.dbase.dao;
 
-import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;

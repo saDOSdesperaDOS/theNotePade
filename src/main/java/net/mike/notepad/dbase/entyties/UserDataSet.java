@@ -48,6 +48,12 @@ public class UserDataSet implements Serializable { // Serializable Important to 
         this.password = password;
     }
 
+    public UserDataSet(String userName, String email, String password) {
+        this.setUserName(userName);
+        this.setEmail(email);
+        this.setPassword(password);
+    }
+
     public UserDataSet(long id, String email, String password) {
         this.setId(id);
         this.setEmail(email);
