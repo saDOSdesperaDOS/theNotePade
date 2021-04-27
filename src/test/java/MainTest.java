@@ -1,4 +1,5 @@
 import net.mike.notepad.dbase.dao.NoteDao;
+import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.services.DBService;
 import net.mike.notepad.dbase.entyties.Account;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
@@ -15,8 +16,13 @@ public class MainTest {
       //removeServiceTest();
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
-        NoteDao noteDao = new NoteDao(session);
-        System.out.println(noteDao.getId("333333333333"));
+        UserDao userDao = new UserDao(session);
+        userDao.insert("login", "password");
+        userDao.insert("login2", "password2");
+        userDao.insert("login3", "password3");
+        /*NoteDao noteDao = new NoteDao(session);
+        NoteDataSet noteDataSet = new NoteDataSet("first tittle", "first textare");
+        noteDao.insert(noteDataSet);*/
 
     }
 

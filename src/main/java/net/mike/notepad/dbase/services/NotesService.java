@@ -44,7 +44,7 @@ public class NotesService {
         return true;
     }
 
-    public NoteDataSet find(long id) {
+    /*public NoteDataSet find(long id) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         NoteDao noteDao = new NoteDao(session);
@@ -53,7 +53,7 @@ public class NotesService {
         tx.commit();
         session.close();
         return noteDataSet;
-    }
+    }*/
 
     public void removeNote(NoteDataSet a) {
         DBService dbService = new DBService();

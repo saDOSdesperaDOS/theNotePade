@@ -18,7 +18,7 @@ public class NoteDao implements InitDao {
         return session.get(NoteDataSet.class, id);
     }
 
-    @Override
+    /*@Override
     //вернет -1 если такого пользователя нет в базе
     public long getId(String tittle) {
         try {
@@ -27,8 +27,10 @@ public class NoteDao implements InitDao {
         } catch (NullPointerException e) {
             return -1;
         }
+    }*/
+    public long getId(String tittle) {
+        return Long.parseLong(null);
     }
-
     @Override
     public long insert(String tittle, String textArea) {
         return (long) session.save(new NoteDataSet(tittle, textArea));
@@ -47,12 +49,12 @@ public class NoteDao implements InitDao {
         return session.createQuery(criteria).getResultList();
     }
 
-    public NoteDataSet find(long id) {
+   /* public NoteDataSet find(long id) {
         return this.getList()
                 .stream()
                 .filter(entity -> entity.getId() == id)
                 .findFirst().get();
-    }
+    }*/
 
     public void remove(NoteDataSet noteDataSet) {
         session.remove(noteDataSet);

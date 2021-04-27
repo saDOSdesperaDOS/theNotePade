@@ -1,12 +1,22 @@
 package net.mike.notepad.dbase.entyties;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
-@Table(name = "users", schema = "public")
+@Table(name = "user", schema = "public")
 public class UserDataSet implements Serializable { // Serializable Important to Hibernate!
 
+    @ElementCollection
+    @CollectionTable(name = "note")
+    @CollectionId(
+            columns = @Column(name = "note_id"), type = @Type(type = "long"), generator = "identity")
+    protected Collection<NoteDataSet> notes = new ArrayList<>(); 
     private static final long serialVersionUID = -8706689714326132798L;
 
     @Id
@@ -19,6 +29,8 @@ public class UserDataSet implements Serializable { // Serializable Important to 
 
     @Column(name = "password", updatable = false)
     private String password;
+
+
 
     //Important to Hibernate!
     @SuppressWarnings("UnusedDeclaration")

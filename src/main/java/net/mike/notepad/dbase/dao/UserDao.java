@@ -20,7 +20,7 @@ public class UserDao implements InitDao {
     public UserDataSet get(long id) throws HibernateException {
         return session.get(UserDataSet.class, id);
     }
-    @Override
+   /* @Override
     //вернет -1 если такого пользователя нет в базе
     public long getId(String login) {
         try {
@@ -29,7 +29,9 @@ public class UserDao implements InitDao {
         } catch (NullPointerException e) {
             return -1;
         }
-    }
+    }*/
+
+    public long getId(String login) {return Long.parseLong(null);}
     @Override
     public long insert(String login, String password) throws HibernateException {
         return (long) session.save(new UserDataSet(login, password));

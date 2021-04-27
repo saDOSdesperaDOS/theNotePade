@@ -32,22 +32,17 @@ public class ClientGrid extends HorizontalLayout {
         TextArea  textFieldTittle = new TextArea();
         NoteDataSet selectedNoteDataSet = new NoteDataSet();
 
-        //наполняем grid
+        //инициализируем grid
         Grid<NoteDataSet> grid = new Grid<>();
+        //наполняем grid
         grid.addColumn(NoteDataSet::getTittle);
         grid.addColumn(NoteDataSet::getDate);
         grid.setItems(service.getNotesList());
 
-       /* grid.asSingleSelect().addValueChangeListener(event -> {
-            String message = String.format("Selection changed from %s to %s",
-                    event.getOldValue().getId(), event.getValue().getId());
-            Notification.show(message);
-        });*/
-
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
             textFieldTittle.setValue(event.getItem().getTittle());
-            selectedNoteDataSet.setId(event.getItem().getId());
+           // selectedNoteDataSet.setId(event.getItem().getId());
         });
 
         Button greateNewNoteButton = new Button("Create a new note", event -> {
@@ -60,13 +55,13 @@ public class ClientGrid extends HorizontalLayout {
         Button saveButton = new Button("Save", event -> {
             NoteDataSet noteDataSet = new NoteDataSet(textFieldTittle.getValue(), textArea.getValue());
             service.saveNote(noteDataSet);
-            selectedNoteDataSet.setId(noteDataSet.getId());
+            //selectedNoteDataSet.setId(noteDataSet.getId());
             grid.setItems(service.getNotesList());
             }
         );
 
         Button updateButton = new Button("Update", event -> {
-            service.updateNote(service.find(selectedNoteDataSet.getId()), textFieldTittle.getValue(), textArea.getValue());
+           // service.updateNote(service.find(selectedNoteDataSet.getId()), textFieldTittle.getValue(), textArea.getValue());
             grid.setItems(service.getNotesList());
         });
 

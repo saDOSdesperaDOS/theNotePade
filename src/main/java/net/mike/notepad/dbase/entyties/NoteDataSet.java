@@ -4,25 +4,18 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "notes", schema = "public")
+@Embeddable
 public class NoteDataSet implements Serializable, Cloneable {
-    @Id
-    @Column(name= "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "tittle")
-    private String tittle;
-    @Column(name="textarea")
-    private String textArea;
-    @Column(name="date")
-    private LocalDateTime date;
-
+    @Column
+    protected String tittle;
+    @Column
+    protected String textArea;
+    @Column
+    protected LocalDateTime date;
 
     public NoteDataSet() {
         this.tittle = " ";
         this.textArea = " ";
-        //this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
     }
 
     public NoteDataSet(String tittle) {
@@ -35,20 +28,8 @@ public class NoteDataSet implements Serializable, Cloneable {
         this.textArea = textArea;
     }
 
-    /*public void setDate() {
-        date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d/MM/uu hh:mm:ss"));
-    }*/
-
     public LocalDateTime getDate() {
         return date;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTittle() {
@@ -71,17 +52,14 @@ public class NoteDataSet implements Serializable, Cloneable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         NoteDataSet noteDataSet = (NoteDataSet) o;
-
-        if (id != noteDataSet.id) return false;
         if (!tittle.equals(noteDataSet.tittle)) return false;
         return textArea.equals(noteDataSet.textArea);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 1;
         result = 31 * result + tittle.hashCode();
         result = 31 * result + textArea.hashCode();
         return result;
