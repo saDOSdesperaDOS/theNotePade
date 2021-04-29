@@ -4,9 +4,9 @@ import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.junit.jupiter.api.DynamicTest;
 
 public class UserService {
     public UserDataSet getUser(long id) {
@@ -23,10 +23,11 @@ public class UserService {
         }
         return dataSet;
     }
-
+//не работает!!!!!!!!!!
     public long getUserId(String login) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
+        new UserDao(session).getId(login);//!!!!!!!!
         return new UserDao(session).getId(login);
     }
 
