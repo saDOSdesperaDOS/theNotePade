@@ -57,4 +57,8 @@ public class UserService {
         }
         return true;
     }
+
+    public long addNote(String tittle, String textArea) {
+        return new NotesService().saveNote(tittle, textArea);
+    }
 }

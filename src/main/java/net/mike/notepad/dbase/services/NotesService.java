@@ -33,17 +33,6 @@ public class NotesService {
         return notesList;
     }
 
-    public Serializable saveNote(NoteDataSet noteDataSet) {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        NoteDao noteDao = new NoteDao(session);
-        Transaction tx = session.beginTransaction();
-        noteDao.insert(noteDataSet);
-        tx.commit();
-        session.close();
-        return true;
-    }
-
     /*public NoteDataSet find(long id) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
@@ -73,5 +62,11 @@ public class NotesService {
         noteDao.updateNote(a, tittle, textArrea);
         tx.commit();
         session.close();
+    }
+
+    public long saveNote(String tittle, String textArea) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        return new NoteDao(session).insert(tittle, textArea);
     }
 }

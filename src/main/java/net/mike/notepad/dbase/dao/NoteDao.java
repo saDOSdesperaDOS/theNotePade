@@ -18,6 +18,11 @@ public class NoteDao implements InitDao {
         return session.get(NoteDataSet.class, id);
     }
 
+    @Override
+    public long getId(String param) {
+        return 0;
+    }
+
     /*@Override
     //вернет -1 если такого пользователя нет в базе
     public long getId(String tittle) {
@@ -28,17 +33,10 @@ public class NoteDao implements InitDao {
             return -1;
         }
     }*/
-    public long getId(String tittle) {
-        return Long.parseLong(null);
-    }
+
     @Override
     public long insert(String tittle, String textArea) {
         return (long) session.save(new NoteDataSet(tittle, textArea));
-    }
-
-    public boolean insert(NoteDataSet noteDataSet) {
-        session.save(noteDataSet);
-        return true;
     }
 
     @Override

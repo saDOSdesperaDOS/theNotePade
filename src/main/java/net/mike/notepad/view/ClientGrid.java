@@ -53,8 +53,7 @@ public class ClientGrid extends HorizontalLayout {
         });
 
         Button saveButton = new Button("Save", event -> {
-            NoteDataSet noteDataSet = new NoteDataSet(textFieldTittle.getValue(), textArea.getValue());
-            service.saveNote(noteDataSet);
+            service.saveNote(textFieldTittle.getValue(), textArea.getValue());
             //selectedNoteDataSet.setId(noteDataSet.getId());
             grid.setItems(service.getNotesList());
             }
