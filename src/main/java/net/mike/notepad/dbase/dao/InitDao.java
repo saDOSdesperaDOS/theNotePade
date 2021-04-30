@@ -8,7 +8,7 @@ import java.util.List;
 public interface InitDao<T> {
     T get(long id);
     long getId(String param);
-    long insert(String param1, String param2);
+    long insert(String textArea, String tittle);
     List<T> getList();
 
 }

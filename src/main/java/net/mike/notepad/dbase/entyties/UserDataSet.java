@@ -1,12 +1,13 @@
 package net.mike.notepad.dbase.entyties;
 
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.Type;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "public")
@@ -14,7 +15,7 @@ public class UserDataSet implements Serializable { // Serializable Important to 
 
     @ElementCollection
     @CollectionTable(name = "note")
-    protected Collection<NoteDataSet> notes = new ArrayList<>();
+    protected List<NoteDataSet> notes = new ArrayList<>();
     private static final long serialVersionUID = -8706689714326132798L;
 
     @Id
@@ -78,6 +79,10 @@ public class UserDataSet implements Serializable { // Serializable Important to 
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<NoteDataSet> getNotes() {
+        return notes;
     }
 
     @Override

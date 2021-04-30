@@ -64,9 +64,7 @@ public class NotesService {
         session.close();
     }
 
-    public long saveNote(String tittle, String textArea) {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        return new NoteDao(session).insert(tittle, textArea);
-    }
+   /* public long saveNote(long userId, String tittle, String textArea) {
+        return new NoteDao(session).insert(noteDataSet);
+    }*/
 }

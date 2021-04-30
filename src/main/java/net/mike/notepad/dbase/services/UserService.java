@@ -1,12 +1,13 @@
 package net.mike.notepad.dbase.services;
 
 import net.mike.notepad.dbase.dao.UserDao;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.junit.jupiter.api.Test;
 
 public class UserService {
     public UserDataSet getUser(long id) {
@@ -23,11 +24,16 @@ public class UserService {
         }
         return dataSet;
     }
-
+//не работает!!!!!!!!!!
     public long getUserId(String login) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
-        return new UserDao(session).getId(login);
+        Transaction tx = session.beginTransaction();
+        UserDao userDao = new UserDao(session);
+        long userId = userDao.getId(login);
+        tx.commit();
+        session.close();
+        return userId;
     }
 
     public long addUser(String login, String password) {
@@ -58,7 +64,14 @@ public class UserService {
         return true;
     }
 
-    public long addNote(String tittle, String textArea) {
-        return new NotesService().saveNote(tittle, textArea);
+    public void addNote(long userId, String tittle, String textArea) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        NoteDataSet noteDataSet = new NoteDataSet(tittle, textArea);
+        UserDao userDao = new UserDao(session);
+        Transaction tx = session.beginTransaction();
+        userDao.addNote(userId, noteDataSet);
+        tx.commit();
+        session.close();
     }
 }

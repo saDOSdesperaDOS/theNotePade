@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 @Embeddable
 public class NoteDataSet implements Serializable, Cloneable {
+
+    long userId;
     @Column
     protected String tittle;
     @Column
@@ -46,6 +48,14 @@ public class NoteDataSet implements Serializable, Cloneable {
 
     public void setTextArea(String textArea) {
         this.textArea = textArea;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     @Override
