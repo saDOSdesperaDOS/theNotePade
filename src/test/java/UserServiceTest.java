@@ -1,4 +1,5 @@
-import net.mike.notepad.dbase.entyties.NoteDataSet;
+import net.mike.notepad.dbase.entyties.UserDataSet;
+import net.mike.notepad.dbase.services.DBService;
 import net.mike.notepad.dbase.services.UserService;
 import org.junit.*;
 
@@ -6,21 +7,23 @@ import java.util.logging.Logger;
 
 public class UserServiceTest {
     @Test
-    public static void addUserTest(String login, String password) {
-        long userId = new UserService().addUser(login, password);
-        if (userId == 0 ) {
-            Logger.getGlobal().warning("UserService#addUser - test failed");
-            return;
-        }
-        Logger.getGlobal().info("UserService#addUser - test pass. userId: " + userId + " ,login: " + login + " ,password: " + password );
+    public void addUserTest() {
+       assert  new UserService().addUser("login1", "password1") == 1;
     }
     @Test
-    public static void addNoteTest(long userId, String tittle, String textArea) {
-        UserService userService = new UserService();
-        userService.addUser("admin", "admin123");
-        userService.addNote(userId, tittle, textArea);
-
+    public void isRregisteredTest() {
+        DBService.setHibernate_hbm2ddl_auto("update");
+        assert new UserService().isRegistered("login1") == true;
+        assert new UserService().isRegistered("login") == false;
 
     }
-
+    @Test
+    public void getUserTest() {
+        UserDataSet user = new UserService().getUser(1);
+        assert user.getLogin().equals("login1");
+    }
+    @Test
+    public void getUserIdTest() {
+        assert new UserService().getUserId("login1") == 1;
+    }
 }
