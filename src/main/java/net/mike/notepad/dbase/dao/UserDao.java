@@ -7,6 +7,8 @@ import org.hibernate.Session;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class UserDao implements InitDao {
@@ -35,13 +37,30 @@ public class UserDao implements InitDao {
         }
     }
 
-    public boolean addNote(long userId, NoteDataSet noteDataSet) {
+    public boolean insertNote(long userId, NoteDataSet noteDataSet) {
            UserDataSet userDataSet = this.get(userId);;
           return userDataSet.getNotes().add(noteDataSet);
     }
 
+    public boolean removeNote(long userId, NoteDataSet noteDataSet) {
+        UserDataSet userDataSet = this.get(userId);
+        return userDataSet.getNotes().remove(noteDataSet);
+    }
+
+    public void updateNote(long userId, NoteDataSet note, String newTittle, String newTextArea) {
+        UserDataSet userDataSet = this.get(userId);
+        int indexNote = userDataSet.getNotes().indexOf(note);
+        NoteDataSet noteDataSet = userDataSet.getNotes().get(indexNote);
+        noteDataSet.setTittle(newTittle);
+        noteDataSet.setTextArea(newTextArea);
+    }
+
     @Override
     public List<UserDataSet> getList() {
-        return null;
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<UserDataSet> criteria = builder.createQuery(UserDataSet.class);
+        criteria.from(UserDataSet.class);
+        return session.createQuery(criteria).getResultList();
+
     }
 }

@@ -4,10 +4,8 @@ import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import org.hibernate.HibernateException;
-import org.hibernate.IdentifierLoadAccess;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.NoResultException;
 
@@ -24,15 +22,14 @@ public class UserService {
         return id;
     }
 
-    public boolean isRegistered(String login) throws HibernateException, ConstraintViolationException {
+    public boolean isRegistered(String login) throws HibernateException {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             UserDao dao = new UserDao(session);
             dao.getId(login);
-
-        } catch (NoResultException | ConstraintViolationException e) {
+        } catch (NoResultException e) {
             return false;
         } finally {
             transaction.commit();
@@ -72,8 +69,30 @@ public class UserService {
         NoteDataSet noteDataSet = new NoteDataSet(tittle, textArea);
         UserDao userDao = new UserDao(session);
         Transaction tx = session.beginTransaction();
-        userDao.addNote(userId, noteDataSet);
+        userDao.insertNote(userId, noteDataSet);
         tx.commit();
         session.close();
     }
+
+    public void updateNote(long userId, NoteDataSet note, String newTittle, String newTextAre) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        UserDao userDao = new UserDao(session);
+        Transaction tx = session.beginTransaction();
+        userDao.updateNote(userId, note, newTittle, newTextAre);
+        tx.commit();
+        session.close();
+    }
+
+    public void removeNote(long userId, NoteDataSet note) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        UserDao userDao = new UserDao(session);
+        Transaction tx = session.beginTransaction();
+        userDao.removeNote(userId, note);
+        tx.commit();
+        session.close();
+    }
+
+
 }
