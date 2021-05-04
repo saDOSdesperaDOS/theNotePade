@@ -3,8 +3,6 @@ import net.mike.notepad.dbase.services.DBService;
 import net.mike.notepad.dbase.services.UserService;
 import org.junit.*;
 
-import java.util.logging.Logger;
-
 public class UserServiceTest {
     @Test
     public void addUserTest() {

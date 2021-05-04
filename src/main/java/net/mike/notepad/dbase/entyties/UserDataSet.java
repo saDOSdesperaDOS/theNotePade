@@ -1,13 +1,9 @@
 package net.mike.notepad.dbase.entyties;
 
-import org.junit.jupiter.api.Test;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "public")
@@ -29,12 +25,8 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     @Column(name = "password", updatable = false)
     private String password;
 
-
-
     //Important to Hibernate!
-    @SuppressWarnings("UnusedDeclaration")
-    public UserDataSet() {
-    }
+    public UserDataSet() {}
 
     public UserDataSet(long id, String login) {
         this.setId(id);

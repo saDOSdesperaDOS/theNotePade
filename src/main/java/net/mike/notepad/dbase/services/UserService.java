@@ -1,8 +1,10 @@
 package net.mike.notepad.dbase.services;
 
 import net.mike.notepad.dbase.dao.UserDao;
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import org.hibernate.HibernateException;
+import org.hibernate.IdentifierLoadAccess;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
@@ -64,7 +66,7 @@ public class UserService {
         return userId;
     }
 
-   /* public void addNote(long userId, String tittle, String textArea) {
+    public void addNote(long userId, String tittle, String textArea) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         NoteDataSet noteDataSet = new NoteDataSet(tittle, textArea);
@@ -73,5 +75,5 @@ public class UserService {
         userDao.addNote(userId, noteDataSet);
         tx.commit();
         session.close();
-    }*/
+    }
 }

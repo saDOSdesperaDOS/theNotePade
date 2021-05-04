@@ -35,11 +35,9 @@ public class UserDao implements InitDao {
         }
     }
 
-
-
-    public void addNote(long userId, NoteDataSet noteDataSet) {
+    public boolean addNote(long userId, NoteDataSet noteDataSet) {
            UserDataSet userDataSet = this.get(userId);;
-           session.save(userDataSet.getLogin(), noteDataSet);
+          return userDataSet.getNotes().add(noteDataSet);
     }
 
     @Override
