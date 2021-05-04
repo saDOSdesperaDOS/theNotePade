@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.NoResultException;
+import java.util.List;
 
 public class UserService {
 
@@ -92,6 +93,17 @@ public class UserService {
         userDao.removeNote(userId, note);
         tx.commit();
         session.close();
+    }
+
+    public List<NoteDataSet> getNotesList(long userId) {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        UserDao userDao = new UserDao(session);
+        Transaction tx = session.beginTransaction();
+        List<NoteDataSet> list = userDao.getNotesList(userId);
+        tx.commit();
+        session.close();
+        return list;
     }
 
 

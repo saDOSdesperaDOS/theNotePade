@@ -10,6 +10,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.dbase.services.NotesService;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
+import net.mike.notepad.dbase.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +29,7 @@ public class ClientGrid extends HorizontalLayout {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
         NotesService service = new NotesService();
+        UserService userService = new UserService();
         TextArea  textArea = new TextArea();
         TextArea  textFieldTittle = new TextArea();
         NoteDataSet selectedNoteDataSet = new NoteDataSet();

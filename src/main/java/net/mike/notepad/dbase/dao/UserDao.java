@@ -61,6 +61,10 @@ public class UserDao implements InitDao {
         CriteriaQuery<UserDataSet> criteria = builder.createQuery(UserDataSet.class);
         criteria.from(UserDataSet.class);
         return session.createQuery(criteria).getResultList();
+    }
 
+    public List<NoteDataSet> getNotesList(long userId) {
+        UserDataSet user = this.get(userId);
+        return user.getNotes();
     }
 }
