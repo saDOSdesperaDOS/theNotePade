@@ -32,7 +32,7 @@ public class SignUpFormView extends VerticalLayout {
 
 		  b.addClickListener( e-> {
 			  if(!confirmPass.getValue().equals(pass.getValue())) {
-				  Notification.show("passwords don't match");
+				  Notification.show("passwords don't match").setPosition(Notification.Position.BOTTOM_CENTER);
 				  return;
 			  }
 			   mailer = new Mailer();
@@ -55,7 +55,7 @@ public class SignUpFormView extends VerticalLayout {
 					  }
 					  else {
 						  textField.clear();
-						  Notification.show("Your email is NOT verifyng");
+						  Notification.show("Your email is NOT verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 
 					  }
 
