@@ -21,16 +21,14 @@ import net.mike.notepad.utils.Mailer;
 public class SignUpFormView extends VerticalLayout {
 	Mailer mailer;
 	UserService userService;
-	UserDataSet userDataSet;
 	public SignUpFormView() {
 		final FormLayout form = new FormLayout();
-		TextField userName = new TextField("Name");
 		EmailField email = new EmailField("Email");
 		PasswordField pass = new PasswordField("Password");
 		PasswordField confirmPass = new PasswordField("Confirm Password");
 		Button b = new Button("Greate Account");
 
-		  form.add(userName, email ,pass, confirmPass, b);
+		  form.add(email ,pass, confirmPass, b);
 
 		  b.addClickListener( e-> {
 			  if(!confirmPass.getValue().equals(pass.getValue())) {
@@ -41,21 +39,18 @@ public class SignUpFormView extends VerticalLayout {
 			   userService = new UserService();
 			  if(mailer.regExpValidator(email.getValue()) && !userService.isRegistered(email.getValue())) {
 				  mailer.send(email.getValue());
-				  Notification.show("Code sending");
-				  userDataSet = new UserDataSet(userName.getValue(), email.getValue(), pass.getValue());
-				  //b.getUI().ifPresent(ui -> ui.navigate("confirm"));
+				  Notification.show("A verification code has been sent to your email address").setPosition(Notification.Position.BOTTOM_CENTER);
 				  Dialog dialog = new Dialog();
 				  TextField textField = new TextField();
 				  Button confirmButton = new Button("Verify");
-				  //Input input = new Input();
 				  dialog.add(textField, confirmButton);
 				  dialog.open();
 				  textField.focus();
 				  confirmButton.addClickListener(event -> {
 					  if (textField.getValue().equals(CodeGenerator.getInstance().getCode())) {
-						  userService.addUser(userDataSet);
+						  userService.addUser(email.getValue(), pass.getValue());
 						  dialog.close();
-						  Notification.show("Your email is verifyng");
+						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 						  confirmButton.getUI().ifPresent(ui -> ui.navigate("login"));
 					  }
 					  else {
