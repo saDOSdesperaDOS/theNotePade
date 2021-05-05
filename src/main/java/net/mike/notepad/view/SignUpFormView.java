@@ -1,21 +1,21 @@
 package net.mike.notepad.view;
 
-import com.vaadin.flow.component.AbstractField;
-import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Input;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
-import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.UserService;
 import net.mike.notepad.utils.CodeGenerator;
 import net.mike.notepad.utils.Mailer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Route("signup")
 public class SignUpFormView extends VerticalLayout {
@@ -26,11 +26,11 @@ public class SignUpFormView extends VerticalLayout {
 		EmailField email = new EmailField("Email");
 		PasswordField pass = new PasswordField("Password");
 		PasswordField confirmPass = new PasswordField("Confirm Password");
-		Button b = new Button("Greate Account");
+		Button greateAccount = new Button("Greate Account");
 
-		  form.add(email ,pass, confirmPass, b);
+		  form.add(email ,pass, confirmPass, greateAccount);
 
-		  b.addClickListener( e-> {
+		  greateAccount.addClickListener( e-> {
 			  if(!confirmPass.getValue().equals(pass.getValue())) {
 				  Notification.show("passwords don't match").setPosition(Notification.Position.BOTTOM_CENTER);
 				  return;
@@ -51,7 +51,9 @@ public class SignUpFormView extends VerticalLayout {
 						  userService.addUser(email.getValue(), pass.getValue());
 						  dialog.close();
 						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
-						  confirmButton.getUI().ifPresent(ui -> ui.navigate("login"));
+						  Map<String, String> param = new HashMap<>();
+						  param.put("login", email.getValue());
+						  confirmButton.getUI().ifPresent(ui -> ui.navigate("login", QueryParameters.simple(param)));
 					  }
 					  else {
 						  textField.clear();
@@ -62,14 +64,12 @@ public class SignUpFormView extends VerticalLayout {
 				  });
 			  }
 		  });
-		  
-		  setWidth("25%");
-		  setHeight("65%");
-		  getElement().getStyle().set("position", "absolute");
-		  getElement().getStyle().set("margin-top", "5%");
-		  getElement().getStyle().set("margin-left", "37%");
-		  add(form);
-		
+		setWidth("25%");
+		setHeight("65%");
+		getElement().getStyle().set("position", "absolute");
+		getElement().getStyle().set("margin-top", "5%");
+		getElement().getStyle().set("margin-left", "37%");
+		add(form);
 	}
 
 }

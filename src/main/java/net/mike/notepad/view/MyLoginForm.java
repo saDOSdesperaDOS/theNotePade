@@ -3,9 +3,16 @@ package net.mike.notepad.view;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
+import com.vaadin.flow.server.VaadinRequest;
+import com.vaadin.flow.server.VaadinServletRequest;
+
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.List;
+import java.util.Map;
 
 @Route("login")
 public class MyLoginForm extends Div {
@@ -18,6 +25,9 @@ public class MyLoginForm extends Div {
 	    final FormLayout formLayout = new FormLayout();
 	    formLayout.add(userEmailField,userPasswordField,loginButton);
 	    add(formLayout);
+		Location location = new Location("signup");
+		QueryParameters param = location.getQueryParameters();
+		Notification.show(String.valueOf(param.getParameters().get("login")));
 	    loginButton.addClickListener(click -> {
 	    	if(loginCheck()) {
 	    		loginButton.getUI().ifPresent(ui -> ui.navigate("grid"));
@@ -33,5 +43,5 @@ public class MyLoginForm extends Div {
 	public boolean loginCheck() {
 		return true;
 	}
-	
+
 }
