@@ -13,6 +13,7 @@ import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinServletRequest;
 
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +25,8 @@ public class MyLoginForm extends Div {
 		final PasswordField userPasswordField = new PasswordField("Password");
 		final Button loginButton = new Button("Login");
 		final FormLayout formLayout = new FormLayout();
-		String login = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
-		if (login.contains("ui")) {
+		String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+		if (email.contains("ui")) {
 			UI.getCurrent().getPage().reload();
 			return;
 		}
@@ -38,10 +39,13 @@ public class MyLoginForm extends Div {
 		getElement().getStyle().set("margin-top", "5%");
 		getElement().getStyle().set("margin-left", "37%");
 
-		userEmailField.setValue(login);
+		userEmailField.setValue(email);
+
 	    loginButton.addClickListener(click -> {
 	    	if(loginCheck()) {
-	    		loginButton.getUI().ifPresent(ui -> ui.navigate("grid"));
+				Map<String, String> param = new HashMap<>();
+				param.put("email", userEmailField.getValue());
+	    		loginButton.getUI().ifPresent(ui -> ui.navigate("grid", QueryParameters.simple(param)));
 	    	}
 	    });
 	}
