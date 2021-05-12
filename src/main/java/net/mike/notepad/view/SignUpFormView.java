@@ -29,6 +29,12 @@ public class SignUpFormView extends VerticalLayout {
 		Button greateAccount = new Button("Greate Account");
 
 		  form.add(email ,pass, confirmPass, greateAccount);
+		  add(form);
+		  setWidth("25%");
+		  setHeight("65%");
+		  getElement().getStyle().set("position", "absolute");
+		  getElement().getStyle().set("margin-top", "5%");
+		  getElement().getStyle().set("margin-left", "37%");
 
 		  greateAccount.addClickListener( e-> {
 			  if(!confirmPass.getValue().equals(pass.getValue())) {
@@ -52,7 +58,7 @@ public class SignUpFormView extends VerticalLayout {
 						  dialog.close();
 						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 						  Map<String, String> param = new HashMap<>();
-						  param.put("login", email.getValue());
+						  param.put("email", email.getValue());
 						  confirmButton.getUI().ifPresent(ui -> ui.navigate("login", QueryParameters.simple(param)));
 					  }
 					  else {
@@ -64,12 +70,7 @@ public class SignUpFormView extends VerticalLayout {
 				  });
 			  }
 		  });
-		setWidth("25%");
-		setHeight("65%");
-		getElement().getStyle().set("position", "absolute");
-		getElement().getStyle().set("margin-top", "5%");
-		getElement().getStyle().set("margin-left", "37%");
-		add(form);
+
 	}
 
 }

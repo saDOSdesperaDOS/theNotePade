@@ -30,7 +30,7 @@ public class UserDao implements InitDao {
     //вернет -1 если такого пользователя нет в базе
     public long getId(String login) throws NoResultException {
         try {
-            TypedQuery<UserDataSet> query = session.createQuery("select i from UserDataSet i where i.login = :login").setParameter("login", login);
+            TypedQuery<UserDataSet> query = session.createQuery("select i from UserDataSet i where i.email = :login").setParameter("login", login);
             return query.getSingleResult().getId();
         } catch (NullPointerException e) {
             return -1;

@@ -18,7 +18,7 @@ public class UserServiceTest {
     @Test
     public void getUserTest() {
         UserDataSet user = new UserService().getUser(1);
-        assert user.getLogin().equals("login1");
+        assert user.getEmail().equals("login1");
     }
     @Test
     public void getUserIdTest() {

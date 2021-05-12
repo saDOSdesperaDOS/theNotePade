@@ -23,13 +23,13 @@ public class UserService {
         return id;
     }
 
-    public boolean isRegistered(String login) throws HibernateException {
+    public boolean isRegistered(String email) throws HibernateException {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             UserDao dao = new UserDao(session);
-            dao.getId(login);
+            dao.getId(email);
         } catch (NoResultException e) {
             return false;
         } finally {
@@ -53,12 +53,12 @@ public class UserService {
         }
         return dataSet;
     }
-    public long getUserId(String login) {
+    public long getUserId(String email) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         UserDao userDao = new UserDao(session);
-        long userId = userDao.getId(login);
+        long userId = userDao.getId(email);
         tx.commit();
         session.close();
         return userId;
