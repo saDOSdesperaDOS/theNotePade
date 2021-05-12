@@ -82,12 +82,12 @@ public class ClientGrid extends HorizontalLayout {
         );
 
         Button updateButton = new Button("Update", event -> {
-           // service.updateNote(service.find(selectedNoteDataSet.getId()), textFieldTittle.getValue(), textArea.getValue());
+           service.updateNote(id, selectedNoteDataSet, textFieldTittle.getValue(), textArea.getValue());
             grid.setItems(service.getNotesList(id));
         });
 
         Button removeButton = new Button("Trash", event -> {
-           service.removeNote(selectedNoteDataSet);
+           service.removeNote(id, selectedNoteDataSet);
            grid.setItems(service.getNotesList(id));
         });
 
