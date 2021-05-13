@@ -29,6 +29,4 @@ public class MainTest {
         UserService service = new UserService();
         System.out.println(service.getNotesList(6).size());
     }
-
-
 }

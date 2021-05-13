@@ -27,11 +27,11 @@ public class UserServiceTest {
 
     @Test
     public void updateNoteTest() {
+        DBService.setHibernate_hbm2ddl_auto("update");
         UserService userService = new UserService();
-        long id = userService.addUser("login@email.com", "password");
-        userService.addNote(id,"tittleTest", "textAreaTExt");
-        NoteDataSet n = userService.getNote(1, "tittleTest");
-        userService.updateNote(1, n, "updateTittleTest", "updateTextAreaTest");
-        assert n.getTittle().equals("updateTittleTest") && n.getTextArea().equals("updateTextAreaTest");
+        long id = userService.addUser("logmike2@gmail.com", "qwerty");
+        userService.addNote(id,"tittleTest2", "textAreaTExt2");
+        userService.updateNote(id, userService.getNote(id, "tittleTest2"), "update3", "updateText3");
+         assert userService.getNote(id, "update3").getTittle().equals("update3");
     }
 }
