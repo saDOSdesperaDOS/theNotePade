@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "user", schema = "public")
 public class UserDataSet implements Serializable { // Serializable Important to Hibernate!
 
-    @ElementCollection
+    @ElementCollection(fetch =  FetchType.EAGER)
     @CollectionTable(name = "note")
     protected List<NoteDataSet> notes = new ArrayList<>();
     private static final long serialVersionUID = -8706689714326132798L;
