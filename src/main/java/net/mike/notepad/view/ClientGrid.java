@@ -49,12 +49,12 @@ public class ClientGrid extends HorizontalLayout {
         layoutVerticalRight.setMaxHeight("100%");
         setMinHeight("100%");
         setMaxHeight("100%");
-        String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+       String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
         if (email.contains("ui")) {
             UI.getCurrent().getPage().reload();
             return;
         }
-        long id = service.getUserId(email);
+        long id = 1;//service.getUserId(email);
         //наполняем grid
         grid.addColumn(NoteDataSet::getTittle);
         grid.addColumn(NoteDataSet::getDate);
@@ -63,12 +63,12 @@ public class ClientGrid extends HorizontalLayout {
         grid.addItemClickListener(event -> {
             textArea.setValue(event.getItem().getTextArea());
             textFieldTittle.setValue(event.getItem().getTittle());
-            selectedNoteDataSet.setTittle(event.getItem().getTittle());
+           selectedNoteDataSet.setTittle(event.getItem().getTittle());
             selectedNoteDataSet.setTextArea(event.getItem().getTextArea());
         });
 
         Button greateNewNoteButton = new Button("Create a new note", event -> {
-            textFieldTittle.setPlaceholder("titlle of new note");
+           textFieldTittle.setPlaceholder("titlle of new note");
             textArea.setPlaceholder("text of new note");
             textFieldTittle.setValue(textFieldTittle.getEmptyValue());
             textArea.setValue(textArea.getEmptyValue());
@@ -76,13 +76,13 @@ public class ClientGrid extends HorizontalLayout {
 
         Button saveButton = new Button("Save", event -> {
            service.addNote(id, textFieldTittle.getValue(), textArea.getValue());
-            //selectedNoteDataSet.setId(noteDataSet.getId());
-            grid.setItems(service.getNotesList(id));
+           //selectedNoteDataSet.setId(noteDataSet.getId());
+           grid.setItems(service.getNotesList(id));
             }
         );
 
         Button updateButton = new Button("Update", event -> {
-           service.updateNote(id, selectedNoteDataSet, textFieldTittle.getValue(), textArea.getValue());
+          service.updateNote(id, selectedNoteDataSet, textFieldTittle.getValue(), textArea.getValue());
             grid.setItems(service.getNotesList(id));
         });
 

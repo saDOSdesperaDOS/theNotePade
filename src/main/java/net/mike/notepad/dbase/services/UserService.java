@@ -12,12 +12,12 @@ import java.util.List;
 
 public class UserService {
 
-    public long addUser(String login, String password) {
+    public long addUser(String email, String password) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         UserDao dao = new UserDao(session);
-        long id = dao.insert(login, password);
+        long id = dao.insert(email, password);
         transaction.commit();
         session.close();
         return id;
@@ -104,6 +104,10 @@ public class UserService {
         tx.commit();
         session.close();
         return list;
+    }
+
+    public NoteDataSet getNote(long id, String tittle) {
+        return  this.getNotesList(id).get(this.getNotesList(id).indexOf(new NoteDataSet(tittle)));
     }
 
 

@@ -54,8 +54,7 @@ public class NoteDataSet implements Serializable, Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NoteDataSet noteDataSet = (NoteDataSet) o;
-        if (!tittle.equals(noteDataSet.tittle)) return false;
-        return textArea.equals(noteDataSet.textArea);
+        return tittle.equals(noteDataSet.tittle);
     }
 
     @Override

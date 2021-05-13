@@ -1,3 +1,4 @@
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.DBService;
 import net.mike.notepad.dbase.services.UserService;
@@ -10,7 +11,6 @@ public class UserServiceTest {
     }
     @Test
     public void isRregisteredTest() {
-        DBService.setHibernate_hbm2ddl_auto("update");
         assert new UserService().isRegistered("login1") == true;
         assert new UserService().isRegistered("login") == false;
 
@@ -23,5 +23,15 @@ public class UserServiceTest {
     @Test
     public void getUserIdTest() {
         assert new UserService().getUserId("login1") == 1;
+    }
+
+    @Test
+    public void updateNoteTest() {
+        UserService userService = new UserService();
+        long id = userService.addUser("login@email.com", "password");
+        userService.addNote(id,"tittleTest", "textAreaTExt");
+        NoteDataSet n = userService.getNote(1, "tittleTest");
+        userService.updateNote(1, n, "updateTittleTest", "updateTextAreaTest");
+        assert n.getTittle().equals("updateTittleTest") && n.getTextArea().equals("updateTextAreaTest");
     }
 }
