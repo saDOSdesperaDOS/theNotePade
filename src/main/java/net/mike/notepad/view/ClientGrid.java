@@ -10,7 +10,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinServletRequest;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import net.mike.notepad.dbase.services.NotesService;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.services.UserService;
 import org.slf4j.Logger;

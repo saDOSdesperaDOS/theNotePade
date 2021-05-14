@@ -1,5 +1,7 @@
 package net.mike.notepad.dbase.services;
 
+import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.PasswordField;
 import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
@@ -21,22 +23,6 @@ public class UserService {
         transaction.commit();
         session.close();
         return id;
-    }
-
-    public boolean isRegistered(String email) throws HibernateException {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            UserDao dao = new UserDao(session);
-            dao.getId(email);
-        } catch (NoResultException e) {
-            return false;
-        } finally {
-            transaction.commit();
-            session.close();
-        }
-        return true;
     }
 
     public UserDataSet getUser(long id) {
@@ -110,5 +96,27 @@ public class UserService {
         return  this.getNotesList(id).get(this.getNotesList(id).indexOf(new NoteDataSet(tittle)));
     }
 
+    public boolean isRegistered(String email) throws HibernateException {
+        DBService dbService = new DBService();
+        Session session = dbService.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            UserDao dao = new UserDao(session);
+            dao.getId(email);
+        } catch (NoResultException e) {
+            return false;
+        } finally {
+            transaction.commit();
+            session.close();
+        }
+        return true;
+    }
 
+    public boolean isValid(String email, String password) {
+        UserDataSet user = this.getUser(this.getUserId(email));
+        if (password.equals(user.getPassword())) {
+            return true;
+        }
+        return false;
+    }
 }

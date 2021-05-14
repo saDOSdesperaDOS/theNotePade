@@ -28,9 +28,9 @@ public class UserDao implements InitDao {
     }
    @Override
     //вернет -1 если такого пользователя нет в базе
-    public long getId(String login) throws NoResultException {
+    public long getId(String email) throws NoResultException {
         try {
-            TypedQuery<UserDataSet> query = session.createQuery("select i from UserDataSet i where i.email = :login").setParameter("login", login);
+            TypedQuery<UserDataSet> query = session.createQuery("select i from UserDataSet i where i.email = :email").setParameter("email", email);
             return query.getSingleResult().getId();
         } catch (NullPointerException e) {
             return -1;
@@ -38,7 +38,7 @@ public class UserDao implements InitDao {
     }
 
     public boolean insertNote(long userId, NoteDataSet noteDataSet) {
-           UserDataSet userDataSet = this.get(userId);;
+           UserDataSet userDataSet = this.get(userId);
           return userDataSet.getNotes().add(noteDataSet);
     }
 
@@ -49,8 +49,7 @@ public class UserDao implements InitDao {
 
     public void updateNote(long userId, NoteDataSet note, String newTittle, String newTextArea) {
         UserDataSet userDataSet = this.get(userId);
-        int indexNote = userDataSet.getNotes().indexOf(note);
-        NoteDataSet noteDataSet = userDataSet.getNotes().get(indexNote);
+        NoteDataSet noteDataSet = userDataSet.getNotes().get(userDataSet.getNotes().indexOf(note));
         noteDataSet.setTittle(newTittle);
         noteDataSet.setTextArea(newTextArea);
     }

@@ -10,6 +10,8 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.dbase.services.UserService;
 import net.mike.notepad.utils.CodeGenerator;
 import net.mike.notepad.utils.Mailer;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Route("signup")
+@Theme(variant = Lumo.DARK, value = Lumo.class )
 public class SignUpFormView extends VerticalLayout {
 	Mailer mailer;
 	UserService userService;

@@ -8,16 +8,16 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.server.UIInitEvent;
-import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinServletRequest;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
+import net.mike.notepad.dbase.services.UserService;
 
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Route("login")
+@Theme(variant = Lumo.DARK, value = Lumo.class )
 public class MyLoginForm extends Div {
 
 	public MyLoginForm() {
@@ -42,16 +42,23 @@ public class MyLoginForm extends Div {
 		userEmailField.setValue(email);
 
 	    loginButton.addClickListener(click -> {
-	    	if(loginCheck()) {
+	    	boolean isAuthenticated = authenticate(userEmailField, userPasswordField);
+	    	if(isAuthenticated) {
 				Map<String, String> param = new HashMap<>();
 				param.put("email", userEmailField.getValue());
 	    		loginButton.getUI().ifPresent(ui -> ui.navigate("grid", QueryParameters.simple(param)));
-	    	}
+	    	} else {
+				Notification.show("You could not be authenticated. Try again.").setPosition(Notification.Position.BOTTOM_CENTER);
+			}
 	    });
 	}
 	
-	public boolean loginCheck() {
-		return true;
+	public boolean authenticate(EmailField email, PasswordField password) {
+		UserService userService = new UserService();
+		if (userService.isRegistered(email.getValue()) && userService.isValid(email.getValue(), password.getValue())) {
+			return true;
+		}
+		return false;
 	}
 
 }
