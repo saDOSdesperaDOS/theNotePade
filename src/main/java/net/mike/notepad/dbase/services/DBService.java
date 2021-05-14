@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class DBService {
     private static final String hibernate_show_sql = "true";
-    private static String hibernate_hbm2ddl_auto = "create";
+    private static String hibernate_hbm2ddl_auto = "update";
 
     private final SessionFactory sessionFactory;
 

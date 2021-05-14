@@ -48,12 +48,13 @@ public class ClientGrid extends HorizontalLayout {
         layoutVerticalRight.setMaxHeight("100%");
         setMinHeight("100%");
         setMaxHeight("100%");
-       String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+        String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
         if (email.contains("ui")) {
             UI.getCurrent().getPage().reload();
             return;
         }
-        long id = 1;//service.getUserId(email);
+        //long id = 1;
+        long id = service.getUserId(email);
         //наполняем grid
         grid.addColumn(NoteDataSet::getTittle);
         grid.addColumn(NoteDataSet::getDate);
