@@ -8,28 +8,28 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.server.VaadinServletRequest;
+import com.vaadin.flow.server.*;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.dbase.services.UserService;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-@Route("login")
+@Route("signin")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
-public class MyLoginForm extends Div {
-
-	public MyLoginForm() {
+public class SignInForm extends Div {
+	public SignInForm() throws ServiceException {
 		final EmailField userEmailField = new EmailField("Email");
 		final PasswordField userPasswordField = new PasswordField("Password");
 		final Button loginButton = new Button("Login");
 		final FormLayout formLayout = new FormLayout();
 		String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
-		if (email.contains("ui")) {
+
+		/*if (email.contains("ui")) {
 			UI.getCurrent().getPage().reload();
-			return;
-		}
+		}*/
 	    formLayout.add(userEmailField,userPasswordField,loginButton);
 	    add(formLayout);
 
@@ -39,7 +39,10 @@ public class MyLoginForm extends Div {
 		getElement().getStyle().set("margin-top", "5%");
 		getElement().getStyle().set("margin-left", "37%");
 
-		userEmailField.setValue(email);
+		/*if (email != null) {
+			userEmailField.setValue(email);
+		}*/
+
 
 	    loginButton.addClickListener(click -> {
 	    	boolean isAuthenticated = authenticate(userEmailField, userPasswordField);

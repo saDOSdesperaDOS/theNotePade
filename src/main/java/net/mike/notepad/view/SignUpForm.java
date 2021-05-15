@@ -21,10 +21,10 @@ import java.util.Map;
 
 @Route("signup")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
-public class SignUpFormView extends VerticalLayout {
+public class SignUpForm extends VerticalLayout {
 	Mailer mailer;
 	UserService userService;
-	public SignUpFormView() {
+	public SignUpForm() {
 		final FormLayout form = new FormLayout();
 		EmailField email = new EmailField("Email");
 		PasswordField pass = new PasswordField("Password");
@@ -62,7 +62,7 @@ public class SignUpFormView extends VerticalLayout {
 						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 						  Map<String, String> param = new HashMap<>();
 						  param.put("email", email.getValue());
-						  confirmButton.getUI().ifPresent(ui -> ui.navigate("login", QueryParameters.simple(param)));
+						  confirmButton.getUI().ifPresent(ui -> ui.navigate("signin", QueryParameters.simple(param)));
 					  }
 					  else {
 						  textField.clear();
