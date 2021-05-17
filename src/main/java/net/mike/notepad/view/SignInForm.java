@@ -19,16 +19,32 @@ import java.util.Map;
 
 @Route("signin")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
-public class SignInForm extends Div {
-	public SignInForm() throws ServiceException {
-		final EmailField userEmailField = new EmailField("Email");
-		final PasswordField userPasswordField = new PasswordField("Password");
-		final Button loginButton = new Button("Login");
-		final FormLayout formLayout = new FormLayout();
-		String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+public class SignInForm extends Div  {
 
+	final EmailField userEmailField = new EmailField("Email");
+	final PasswordField userPasswordField = new PasswordField("Password");
+	final Button loginButton = new Button("Login");
+
+	public SignInForm() throws ServiceException {
+		System.out.println("start SignIn");
+
+		final FormLayout formLayout = new FormLayout();
+		Map<String, String[]> params = VaadinServletRequest.getCurrent().getParameterMap();
+		if(VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString() != null) {
+			String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+			if (email.contains("ui")) {
+				UI.getCurrent().getPage().reload();
+				return;
+			}
+			userEmailField.setValue(email);
+			System.out.println("Email = " + email);
+			System.out.println("Parameters = " + params);
+		}
 		/*if (email.contains("ui")) {
 			UI.getCurrent().getPage().reload();
+		}*/
+		/*if (email != null) {
+			userEmailField.setValue(email);
 		}*/
 	    formLayout.add(userEmailField,userPasswordField,loginButton);
 	    add(formLayout);
@@ -39,9 +55,6 @@ public class SignInForm extends Div {
 		getElement().getStyle().set("margin-top", "5%");
 		getElement().getStyle().set("margin-left", "37%");
 
-		/*if (email != null) {
-			userEmailField.setValue(email);
-		}*/
 
 
 	    loginButton.addClickListener(click -> {
@@ -64,4 +77,18 @@ public class SignInForm extends Div {
 		return false;
 	}
 
+	/*@Override
+	public void beforeEnter(BeforeEnterEvent event) {
+		Map<String, String[]> params = VaadinServletRequest.getCurrent().getParameterMap();
+		if(VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString() != null) {
+			String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+			if (email.contains("ui")) {
+				UI.getCurrent().getPage().reload();
+				return;
+			}
+			userEmailField.setValue(email);
+			System.out.println("Email = " + email);
+			System.out.println("Parameters = " + params);
+		}
+	}*/
 }

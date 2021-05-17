@@ -62,6 +62,7 @@ public class SignUpForm extends VerticalLayout {
 						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 						  Map<String, String> param = new HashMap<>();
 						  param.put("email", email.getValue());
+						  System.out.println("Navigate from SignUp");
 						  confirmButton.getUI().ifPresent(ui -> ui.navigate("signin", QueryParameters.simple(param)));
 					  }
 					  else {

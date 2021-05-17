@@ -15,6 +15,7 @@ public class Main extends HorizontalLayout {
         add(b1, b2);
 
         b1.addClickListener( e-> {
+            System.out.println("Navigate from Main");
             b1.getUI().ifPresent(ui -> ui.navigate("signin"));
         });
         b2.addClickListener( e-> {
