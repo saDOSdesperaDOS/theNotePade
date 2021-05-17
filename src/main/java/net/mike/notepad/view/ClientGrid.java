@@ -18,11 +18,9 @@ import org.slf4j.LoggerFactory;
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
 public class ClientGrid extends HorizontalLayout {
-
     private Logger log = LoggerFactory.getLogger(ClientGrid.class);
 
     public ClientGrid() {
-
         log.info("start constructor ClientGrid");
 
         VerticalLayout layoutVerticalLeft = new VerticalLayout();
@@ -48,12 +46,13 @@ public class ClientGrid extends HorizontalLayout {
         layoutVerticalRight.setMaxHeight("100%");
         setMinHeight("100%");
         setMaxHeight("100%");
+
         String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
+
         if (email.contains("ui")) {
             UI.getCurrent().getPage().reload();
             return;
         }
-        //long id = 1;
         long id = service.getUserId(email);
         //наполняем grid
         grid.addColumn(NoteDataSet::getTittle);
@@ -76,7 +75,6 @@ public class ClientGrid extends HorizontalLayout {
 
         Button saveButton = new Button("Save", event -> {
            service.addNote(id, textFieldTittle.getValue(), textArea.getValue());
-           //selectedNoteDataSet.setId(noteDataSet.getId());
            grid.setItems(service.getNotesList(id));
             }
         );
@@ -91,7 +89,10 @@ public class ClientGrid extends HorizontalLayout {
            grid.setItems(service.getNotesList(id));
         });
 
-        horizontalLayout.add(greateNewNoteButton, saveButton, updateButton, removeButton);
+        Button logOut = new Button("SignOut");
+        logOut.addClickListener(event -> logOut.getUI().ifPresent(ui -> ui.navigate("/")));
+
+        horizontalLayout.add(greateNewNoteButton, saveButton, updateButton, removeButton, logOut);
         layoutVerticalRight.add(horizontalLayout, textFieldTittle, textArea);
         layoutVerticalLeft.add(grid);
         add(layoutVerticalLeft, layoutVerticalRight);

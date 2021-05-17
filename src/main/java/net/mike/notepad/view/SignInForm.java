@@ -21,15 +21,18 @@ import java.util.Map;
 @Theme(variant = Lumo.DARK, value = Lumo.class )
 public class SignInForm extends Div  {
 
-	final EmailField userEmailField = new EmailField("Email");
-	final PasswordField userPasswordField = new PasswordField("Password");
-	final Button loginButton = new Button("Login");
+	final EmailField userEmailField;
+	final PasswordField userPasswordField;
+	final Button loginButton;
+	final FormLayout formLayout;
 
 	public SignInForm() throws ServiceException {
-		System.out.println("start SignIn");
 
-		final FormLayout formLayout = new FormLayout();
-		Map<String, String[]> params = VaadinServletRequest.getCurrent().getParameterMap();
+		userEmailField = new EmailField("Email");
+		userPasswordField = new PasswordField("Password");
+		loginButton = new Button("Login");
+	    formLayout = new FormLayout();
+
 		if(VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString() != null) {
 			String email = VaadinServletRequest.getCurrent().getHttpServletRequest().getQueryString().split("=")[1];
 			if (email.contains("ui")) {
@@ -37,16 +40,9 @@ public class SignInForm extends Div  {
 				return;
 			}
 			userEmailField.setValue(email);
-			System.out.println("Email = " + email);
-			System.out.println("Parameters = " + params);
 		}
-		/*if (email.contains("ui")) {
-			UI.getCurrent().getPage().reload();
-		}*/
-		/*if (email != null) {
-			userEmailField.setValue(email);
-		}*/
-	    formLayout.add(userEmailField,userPasswordField,loginButton);
+
+		formLayout.add(userEmailField,userPasswordField,loginButton);
 	    add(formLayout);
 
 	    setWidth("25%");
@@ -54,8 +50,6 @@ public class SignInForm extends Div  {
 		getElement().getStyle().set("position", "absolute");
 		getElement().getStyle().set("margin-top", "5%");
 		getElement().getStyle().set("margin-left", "37%");
-
-
 
 	    loginButton.addClickListener(click -> {
 	    	boolean isAuthenticated = authenticate(userEmailField, userPasswordField);
