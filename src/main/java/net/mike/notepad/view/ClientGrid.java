@@ -10,6 +10,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinServletRequest;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import net.mike.notepad.Main;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.services.UserService;
 import org.slf4j.Logger;
@@ -86,11 +87,13 @@ public class ClientGrid extends HorizontalLayout {
 
         Button removeButton = new Button("Trash", event -> {
            service.removeNote(id, selectedNoteDataSet);
+           textFieldTittle.setValue(textFieldTittle.getEmptyValue());
+           textArea.setValue(textArea.getEmptyValue());
            grid.setItems(service.getNotesList(id));
         });
 
-        Button logOut = new Button("SignOut");
-        logOut.addClickListener(event -> logOut.getUI().ifPresent(ui -> ui.navigate("/")));
+        Button logOut = new Button("Signout");
+        logOut.addClickListener(event -> logOut.getUI().ifPresent(ui -> ui.navigate(Main.class)));
 
         horizontalLayout.add(greateNewNoteButton, saveButton, updateButton, removeButton, logOut);
         layoutVerticalRight.add(horizontalLayout, textFieldTittle, textArea);
