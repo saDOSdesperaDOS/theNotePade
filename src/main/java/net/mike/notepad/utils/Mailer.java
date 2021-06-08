@@ -19,25 +19,11 @@ public class Mailer {
         final String to = email;
         final String from = "sendersignal@gmail.com";
 
-<<<<<<< HEAD
-        Properties properties = new Properties();
-=======
         Properties properties = System.getProperties();
->>>>>>> emb
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
-<<<<<<< HEAD
-
-        Session session = Session.getInstance(properties,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(from, password);
-                    }
-                }
-        );
-=======
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.password", password);
         properties.put("mail.smtp.user", from);
@@ -50,7 +36,6 @@ public class Mailer {
                     }
                 });
 
->>>>>>> emb
         MimeMessage message = new MimeMessage(session);
 
         try {
@@ -58,11 +43,7 @@ public class Mailer {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("Veryfing your email");
             message.setText(CodeGenerator.getInstance().getCode());//!!!отсылает адрес обьекта в памяти, а не сам код
-<<<<<<< HEAD
-            Transport.send(message);
-=======
             Transport.send(message, from, password);
->>>>>>> emb
         } catch (AddressException e) {
             e.printStackTrace();
             Notification.show("AddressExeption");

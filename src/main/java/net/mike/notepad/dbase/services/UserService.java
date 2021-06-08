@@ -1,5 +1,7 @@
 package net.mike.notepad.dbase.services;
 
+import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.PasswordField;
 import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
@@ -11,15 +13,6 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class UserService {
-    public List<UserDataSet> getUsersList() {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        UserDao userDao = new UserDao(session);
-        Transaction tx = session.beginTransaction();
-        List<UserDataSet> notesList = userDao.getList();
-        tx.commit();
-        session.close();
-        return notesList;
 
     public long addUser(String email, String password) {
         DBService dbService = new DBService();
@@ -56,31 +49,6 @@ public class UserService {
         session.close();
         return userId;
     }
-
-    public long getUserId(String email) {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        return new UserDao(session).getId(email);
-    }
-
-    public long addUser(String email, String password) {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        UserDao dao = new UserDao(session);
-        long id = dao.insert(email, password);
-        transaction.commit();
-        session.close();
-        return id;
-    }
-
-    public long addUser(UserDataSet userDataSet) {
-        DBService dbService = new DBService();
-        Session session = dbService.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        UserDao dao = new UserDao(session);
-        long id = dao.insert(userDataSet);
-        transaction.commit();
 
     public void addNote(long userId, String tittle, String textArea) {
         DBService dbService = new DBService();
@@ -134,8 +102,6 @@ public class UserService {
         Transaction transaction = session.beginTransaction();
         try {
             UserDao dao = new UserDao(session);
-            if(dao.getId(email) == -1) return false;
-        } catch (ConstraintViolationException e) {
             dao.getId(email);
         } catch (NoResultException e) {
             return false;

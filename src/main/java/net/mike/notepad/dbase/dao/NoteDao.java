@@ -11,22 +11,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class NoteDao implements InitDao {
-<<<<<<< HEAD
-    private Session session;
-
-    public NoteDao(Session session) {this.session = session;}
-
-    @Override
-    public NoteDataSet get(long id) {
-        return session.get(NoteDataSet.class, id);
-    }
-
-    @Override
-    //вернет -1 если такого заметки нет в базе
-=======
     /*@Override
     //вернет -1 если такого пользователя нет в базе
->>>>>>> emb
     public long getId(String tittle) {
         try {
             TypedQuery<NoteDataSet> query = session.createQuery("select i from NoteDataSet i where i.tittle = :tittle").setParameter("tittle", tittle);

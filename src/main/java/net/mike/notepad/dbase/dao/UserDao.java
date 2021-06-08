@@ -1,5 +1,6 @@
 package net.mike.notepad.dbase.dao;
 
+import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,7 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class UserDao implements InitDao {
     private Session session;
@@ -28,26 +28,14 @@ public class UserDao implements InitDao {
     }
    @Override
     //вернет -1 если такого пользователя нет в базе
-<<<<<<< HEAD
-    public long getId(String email) {
-=======
     public long getId(String email) throws NoResultException {
->>>>>>> emb
         try {
             TypedQuery<UserDataSet> query = session.createQuery("select i from UserDataSet i where i.email = :email").setParameter("email", email);
             return query.getSingleResult().getId();
         } catch (NullPointerException e) {
             return -1;
-        } catch (NoResultException e) {
-            Logger.getGlobal().info("there is no such user");
-            return  -1;
         }
     }
-<<<<<<< HEAD
-    @Override
-    public long insert(String email, String password) throws HibernateException {
-        return (long) session.save(new UserDataSet(email, password));
-=======
 
     public boolean insertNote(long userId, NoteDataSet noteDataSet) {
            UserDataSet userDataSet = this.get(userId);
@@ -64,25 +52,18 @@ public class UserDao implements InitDao {
         NoteDataSet noteDataSet = userDataSet.getNotes().get(userDataSet.getNotes().indexOf(note));
         noteDataSet.setTittle(newTittle);
         noteDataSet.setTextArea(newTextArea);
->>>>>>> emb
     }
 
-    public long insert(UserDataSet userDataSet) throws HibernateException {
-        return (long) session.save(userDataSet);
-    }
     @Override
     public List<UserDataSet> getList() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<UserDataSet> criteria = builder.createQuery(UserDataSet.class);
         criteria.from(UserDataSet.class);
         return session.createQuery(criteria).getResultList();
-<<<<<<< HEAD
-=======
     }
 
     public List<NoteDataSet> getNotesList(long userId) {
         UserDataSet user = this.get(userId);
         return user.getNotes();
->>>>>>> emb
     }
 }
