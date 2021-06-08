@@ -1,9 +1,46 @@
 @startuml
 'https://plantuml.com/class-diagram
-class DBService {
--SessionFactory sessionFactory
+
+class AccountService {
++void addNewUser(UserProfile userProfile)
++UserProfile getUserByLogin(String login)
++UserProfile getUserBySessionId(String sessionId)
++void addSession(String sessionId, UserProfile userProfile)
++void deleteSession(String sessionId)
 }
 
+class UserProfile {
+-String login
+-String pass
+-String email
++UserProfile(String login, String pass, String email)
++UserProfile(String login)
++String getLogin()
++String getPass()
++String getEmail()
+}
+class SessionsServlet extends HttpServlet {
+-AccountService accountService
++SessionsServlet(AccountService accountService)
++void doGet(HttpServletRequest request,
+                      HttpServletResponse response) throws ServletException, IOException
++void doPost(HttpServletRequest request,
+                       HttpServletResponse response) throws ServletException, IOException
++void doDelete(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException, IOException
+}
++class UsersServlet extends HttpServlet {
+-AccountService accountService
++UsersServlet(AccountService accountService)
++void doGet(HttpServletRequest request,
+                      HttpServletResponse response) throws ServletException, IOException
++void doPost(HttpServletRequest request,
+                       HttpServletResponse response) throws ServletException, IOException
++void doPut(HttpServletRequest request,
+                      HttpServletResponse response) throws ServletException, IOException
++void doDelete(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException, IOException
+}
 class UserDataSet {
 -long id
 -String email
@@ -14,7 +51,9 @@ class UserDao {
 -Session session
 }
 
-
+class DBService {
+-SessionFactory sessionFactory
+}
 
 class UserService
 
