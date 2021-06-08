@@ -1,7 +1,5 @@
 package net.mike.notepad.dbase.services;
 
-import com.vaadin.flow.component.textfield.EmailField;
-import com.vaadin.flow.component.textfield.PasswordField;
 import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
@@ -12,10 +10,7 @@ import org.hibernate.Transaction;
 import javax.persistence.NoResultException;
 import java.util.List;
 
-import java.util.List;
-
 public class UserService {
-<<<<<<< HEAD
     public List<UserDataSet> getUsersList() {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
@@ -25,7 +20,6 @@ public class UserService {
         tx.commit();
         session.close();
         return notesList;
-=======
 
     public long addUser(String email, String password) {
         DBService dbService = new DBService();
@@ -36,7 +30,6 @@ public class UserService {
         transaction.commit();
         session.close();
         return id;
->>>>>>> emb
     }
 
     public UserDataSet getUser(long id) {
@@ -64,7 +57,6 @@ public class UserService {
         return userId;
     }
 
-<<<<<<< HEAD
     public long getUserId(String email) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
@@ -89,7 +81,7 @@ public class UserService {
         UserDao dao = new UserDao(session);
         long id = dao.insert(userDataSet);
         transaction.commit();
-=======
+
     public void addNote(long userId, String tittle, String textArea) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
@@ -108,12 +100,9 @@ public class UserService {
         Transaction tx = session.beginTransaction();
         userDao.updateNote(userId, note, newTittle, newTextAre);
         tx.commit();
->>>>>>> emb
         session.close();
     }
 
-<<<<<<< HEAD
-=======
     public void removeNote(long userId, NoteDataSet note) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
@@ -139,20 +128,16 @@ public class UserService {
         return  this.getNotesList(id).get(this.getNotesList(id).indexOf(new NoteDataSet(tittle)));
     }
 
->>>>>>> emb
     public boolean isRegistered(String email) throws HibernateException {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             UserDao dao = new UserDao(session);
-<<<<<<< HEAD
             if(dao.getId(email) == -1) return false;
         } catch (ConstraintViolationException e) {
-=======
             dao.getId(email);
         } catch (NoResultException e) {
->>>>>>> emb
             return false;
         } finally {
             transaction.commit();

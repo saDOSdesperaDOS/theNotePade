@@ -7,23 +7,15 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinServletRequest;
-import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-<<<<<<< HEAD
 import net.mike.notepad.dbase.entyties.NoteDataSet;
-import net.mike.notepad.dbase.services.NotesService;
-=======
 import net.mike.notepad.Main;
-import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.services.UserService;
->>>>>>> emb
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpSession;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
