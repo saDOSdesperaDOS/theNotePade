@@ -25,6 +25,9 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     @Column(name = "password", updatable = false)
     private String password;
 
+    @Column(name = "role")
+    private String role;
+
     //Important to Hibernate!
     public UserDataSet() {}
 
@@ -76,6 +79,10 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     public List<NoteDataSet> getNotes() {
         return notes;
     }
+
+    public String getRole() {return role;}
+
+    public void setRole(String role) {this.role = role;}
 
     @Override
     public String toString() {

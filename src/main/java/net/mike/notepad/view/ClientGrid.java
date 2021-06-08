@@ -7,7 +7,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinServletRequest;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import net.mike.notepad.Main;
@@ -15,6 +17,8 @@ import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpSession;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
@@ -92,13 +96,15 @@ public class ClientGrid extends HorizontalLayout {
            grid.setItems(service.getNotesList(id));
         });
 
-        Button logOut = new Button("Signout");
-        logOut.addClickListener(event -> logOut.getUI().ifPresent(ui -> ui.navigate(Main.class)));
+        Button logOut = new Button("Sign Out");
+        logOut.addClickListener(event -> {
+            VaadinServletRequest.getCurrent().getHttpServletRequest().getSession().invalidate();
+            logOut.getUI().ifPresent(ui -> ui.navigate(Main.class));
+        });
 
         horizontalLayout.add(greateNewNoteButton, saveButton, updateButton, removeButton, logOut);
         layoutVerticalRight.add(horizontalLayout, textFieldTittle, textArea);
         layoutVerticalLeft.add(grid);
         add(layoutVerticalLeft, layoutVerticalRight);
-
     }
 }

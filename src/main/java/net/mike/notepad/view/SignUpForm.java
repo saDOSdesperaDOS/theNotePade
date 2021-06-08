@@ -21,18 +21,17 @@ import java.util.Map;
 
 @Route("signup")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
-public class SignUpForm extends VerticalLayout {
+public class SignUpForm extends FormLayout {
 	Mailer mailer;
 	UserService userService;
+
 	public SignUpForm() {
-		final FormLayout form = new FormLayout();
 		EmailField email = new EmailField("Email");
 		PasswordField pass = new PasswordField("Password");
 		PasswordField confirmPass = new PasswordField("Confirm Password");
 		Button greateAccount = new Button("Greate Account");
 
-		  form.add(email ,pass, confirmPass, greateAccount);
-		  add(form);
+		  add(email ,pass, confirmPass, greateAccount);
 		  setWidth("25%");
 		  setHeight("65%");
 		  getElement().getStyle().set("position", "absolute");
@@ -41,7 +40,7 @@ public class SignUpForm extends VerticalLayout {
 
 		  greateAccount.addClickListener( e-> {
 			  if(!confirmPass.getValue().equals(pass.getValue())) {
-				  Notification.show("passwords don't match").setPosition(Notification.Position.BOTTOM_CENTER);
+				  Notification.show("Passwords don't match").setPosition(Notification.Position.BOTTOM_CENTER);
 				  return;
 			  }
 			   mailer = new Mailer();
@@ -62,19 +61,14 @@ public class SignUpForm extends VerticalLayout {
 						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 						  Map<String, String> param = new HashMap<>();
 						  param.put("email", email.getValue());
-						  System.out.println("Navigate from SignUp");
 						  confirmButton.getUI().ifPresent(ui -> ui.navigate("signin", QueryParameters.simple(param)));
 					  }
 					  else {
 						  textField.clear();
 						  Notification.show("Your email is NOT verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
-
 					  }
-
 				  });
 			  }
 		  });
-
 	}
-
 }
