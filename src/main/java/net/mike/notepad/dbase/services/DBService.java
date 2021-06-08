@@ -13,7 +13,11 @@ import java.sql.SQLException;
 
 public class DBService {
     private static final String hibernate_show_sql = "true";
+<<<<<<< HEAD
     private static final String hibernate_hbm2ddl_auto = "create";
+=======
+    private static String hibernate_hbm2ddl_auto = "update";
+>>>>>>> emb
 
     private final SessionFactory sessionFactory;
 
@@ -59,5 +63,9 @@ public class DBService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setHibernate_hbm2ddl_auto(String value) {
+        hibernate_hbm2ddl_auto = value;
     }
 }

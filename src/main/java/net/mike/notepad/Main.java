@@ -2,9 +2,19 @@ package net.mike.notepad;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinServletRequest;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 
 @Route
 @Theme(variant = Lumo.DARK, value = Lumo.class )
@@ -15,7 +25,11 @@ public class Main extends HorizontalLayout {
         add(b1, b2);
 
         b1.addClickListener( e-> {
+<<<<<<< HEAD
             b1.getUI().ifPresent(ui -> ui.navigate("login"));
+=======
+            b1.getUI().ifPresent(ui -> ui.navigate("signin"));
+>>>>>>> emb
         });
         b2.addClickListener( e-> {
             b2.getUI().ifPresent(ui -> ui.navigate("signup"));

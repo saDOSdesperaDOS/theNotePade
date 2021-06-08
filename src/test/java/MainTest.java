@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;
 import net.mike.notepad.dbase.services.DBService;
@@ -73,4 +74,14 @@ public class MainTest {
     }
 
 
+=======
+import net.mike.notepad.utils.Mailer;
+
+public class MainTest {
+    public static void main(String... args) {
+        Mailer mailer = new Mailer();
+        mailer.send("bms39rus@gmail.com");
+
+    }
+>>>>>>> emb
 }

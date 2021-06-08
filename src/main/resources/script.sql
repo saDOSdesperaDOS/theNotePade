@@ -1,8 +1,0 @@
-drop table if exists NOTESLIST;
-create table NOTESLIST (
-    ID INT(10) NOT NULL AUTO_INCREMENT,
-    TITTLE   VARCHAR(255),
-    TEXTAREA VARCHAR(255),
-    DATE TIMESTAMP AS NOW(),
-    PRIMARY KEY (ID)
-);
