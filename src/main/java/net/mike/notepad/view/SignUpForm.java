@@ -10,8 +10,12 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinRequest;
+import com.vaadin.flow.server.VaadinService;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import net.mike.notepad.controller.Role;
 import net.mike.notepad.dbase.services.UserService;
 import net.mike.notepad.utils.CodeGenerator;
 import net.mike.notepad.utils.Mailer;
@@ -56,7 +60,7 @@ public class SignUpForm extends FormLayout {
 				  textField.focus();
 				  confirmButton.addClickListener(event -> {
 					  if (textField.getValue().equals(CodeGenerator.getInstance().getCode())) {
-						  userService.addUser(email.getValue(), pass.getValue());
+						  userService.addUser(email.getValue(), pass.getValue(), Role.USER.toString(), VaadinRequest.getCurrent().getWrappedSession().getId());
 						  dialog.close();
 						  Notification.show("Your email is verifyng").setPosition(Notification.Position.BOTTOM_CENTER);
 						  Map<String, String> param = new HashMap<>();

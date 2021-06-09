@@ -28,6 +28,9 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     @Column(name = "role")
     private String role;
 
+    @Column(name = "sessionId")
+    private String sessionId;
+
     //Important to Hibernate!
     public UserDataSet() {}
 
@@ -50,6 +53,13 @@ public class UserDataSet implements Serializable { // Serializable Important to 
         this.setId(id);
         this.setEmail(email);
         this.setPassword(password);
+    }
+
+    public UserDataSet(String email, String password, String role, String sessionId) {
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setRole(role);
+        this.setSessionId(sessionId);
     }
 
     public long getId() {
@@ -83,6 +93,14 @@ public class UserDataSet implements Serializable { // Serializable Important to 
     public String getRole() {return role;}
 
     public void setRole(String role) {this.role = role;}
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 
     @Override
     public String toString() {

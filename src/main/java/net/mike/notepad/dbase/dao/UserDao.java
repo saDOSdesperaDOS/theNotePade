@@ -11,22 +11,22 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class UserDao implements InitDao {
+public class UserDao {
     private Session session;
 
     public UserDao(Session session) {
         this.session = session;
     }
 
-    @Override
-    public long insert(String login, String password) throws HibernateException {
-        return (long) session.save(new UserDataSet(login, password));
+
+    public long insert(String login, String password, String role, String sessionId) throws HibernateException {
+        return (long) session.save(new UserDataSet(login, password, role, sessionId));
     }
-    @Override
+
     public UserDataSet get(long id) throws HibernateException {
         return session.get(UserDataSet.class, id);
     }
-   @Override
+
     //вернет -1 если такого пользователя нет в базе
     public long getId(String email) throws NoResultException {
         try {
@@ -54,7 +54,7 @@ public class UserDao implements InitDao {
         noteDataSet.setTextArea(newTextArea);
     }
 
-    @Override
+
     public List<UserDataSet> getList() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<UserDataSet> criteria = builder.createQuery(UserDataSet.class);

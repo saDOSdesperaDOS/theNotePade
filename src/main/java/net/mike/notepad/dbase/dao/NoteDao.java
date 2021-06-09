@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class NoteDao implements InitDao {
+public class NoteDao {
     /*@Override
     //вернет -1 если такого пользователя нет в базе
     public long getId(String tittle) {
@@ -32,23 +32,19 @@ public class NoteDao implements InitDao {
 
     public NoteDao(Session session) {this.session = session;}
 
-    @Override
     public long getId(String param) {
         return 0;
     }
 
-    @Override
     public NoteDataSet get(long id) {
         return session.get(NoteDataSet.class, id);
     }
 
-    @Override
     public long insert(String tittle, String textArea) {
         NoteDataSet noteDataSet = new NoteDataSet(tittle, textArea);
         return (long) session.save(noteDataSet);
     }
 
-    @Override
     public List<NoteDataSet> getList() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<NoteDataSet> criteria = builder.createQuery(NoteDataSet.class);

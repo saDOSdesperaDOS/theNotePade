@@ -14,12 +14,12 @@ import java.util.List;
 
 public class UserService {
 
-    public long addUser(String email, String password) {
+    public long addUser(String email, String password, String role, String sessionId) {
         DBService dbService = new DBService();
         Session session = dbService.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         UserDao dao = new UserDao(session);
-        long id = dao.insert(email, password);
+        long id = dao.insert(email, password, role, sessionId);
         transaction.commit();
         session.close();
         return id;
