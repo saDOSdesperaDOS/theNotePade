@@ -11,7 +11,7 @@ public class NoteDataSet implements Serializable, Cloneable {
     @Column
     protected String textArea;
     @Column
-    protected LocalDateTime date;
+    protected String date;
 
     public NoteDataSet() {
 
@@ -27,8 +27,12 @@ public class NoteDataSet implements Serializable, Cloneable {
         this.textArea = textArea;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTittle() {
