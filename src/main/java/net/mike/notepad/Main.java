@@ -2,21 +2,13 @@ package net.mike.notepad;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinServletRequest;
-import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
-
 @Route
+@PWA(name = "Web NotePade", shortName = "iNotePade")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
 public class Main extends HorizontalLayout {
     public Main() {
