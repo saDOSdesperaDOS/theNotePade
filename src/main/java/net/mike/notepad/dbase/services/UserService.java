@@ -1,7 +1,5 @@
 package net.mike.notepad.dbase.services;
 
-import com.vaadin.flow.component.textfield.EmailField;
-import com.vaadin.flow.component.textfield.PasswordField;
 import net.mike.notepad.dbase.dao.UserDao;
 import net.mike.notepad.dbase.entyties.NoteDataSet;
 import net.mike.notepad.dbase.entyties.UserDataSet;

@@ -2,7 +2,6 @@ package net.mike.notepad.dbase.entyties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Embeddable
 public class NoteDataSet implements Serializable, Cloneable {

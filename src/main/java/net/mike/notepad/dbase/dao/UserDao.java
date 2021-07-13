@@ -9,9 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -44,11 +42,8 @@ public class UserDao {
     public boolean insertNote(long userId, NoteDataSet noteDataSet) {
            UserDataSet userDataSet = this.get(userId);
            String dateStr = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss").format(LocalDateTime.now());
-           /*LocalDate date = LocalDate.parse(dateStr.split("\\s")[0]);
-           LocalTime time =  LocalTime.parse(dateStr.split("\\s")[1]);
-           noteDataSet.setDate(LocalDateTime.of(date, time));*/
-        noteDataSet.setDate(dateStr);
-          return userDataSet.getNotes().add(noteDataSet);
+           noteDataSet.setDate(dateStr);
+            return userDataSet.getNotes().add(noteDataSet);
     }
 
     public boolean removeNote(long userId, NoteDataSet noteDataSet) {
