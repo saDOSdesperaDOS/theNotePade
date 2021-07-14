@@ -1,5 +1,6 @@
 package net.mike.notepad.view;
 
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -19,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Route("grid")
 @Theme(variant = Lumo.DARK, value = Lumo.class )
@@ -90,10 +93,12 @@ public class ClientGrid extends HorizontalLayout {
         });
 
         Button removeButton = new Button("Trash", event -> {
-           service.removeNote(id, selectedNoteDataSet);
-           textFieldTittle.setValue(textFieldTittle.getEmptyValue());
-           textArea.setValue(textArea.getEmptyValue());
-           grid.setItems(service.getNotesList(id));
+            service.removeNote(id, selectedNoteDataSet);
+            List<NoteDataSet> noteDataSetList = service.getNotesList(id);
+            textFieldTittle.setValue(textFieldTittle.getEmptyValue());
+            textArea.setValue(textArea.getEmptyValue());
+
+            grid.setItems(noteDataSetList);
         });
 
         Button logOut = new Button("Sign Out");

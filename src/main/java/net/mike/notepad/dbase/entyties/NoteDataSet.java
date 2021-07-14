@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class NoteDataSet implements Serializable, Cloneable {
     @Column
     protected String tittle;
-    @Column
+    @Column(length = 10000)
     protected String textArea;
     @Column
     protected String date;
